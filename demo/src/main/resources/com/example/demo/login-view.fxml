@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.LoginController">
+   <left>
+      <AnchorPane prefHeight="400.0" prefWidth="230.0" style="-fx-background-color: #ECECEC;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="33.0" layoutY="218.0" text="Adres:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="275.0" text="Kontakt:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="80.0" layoutY="275.0" style="-fx-font-weight: bold;" text="857 494 388">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="80.0" layoutY="213.0" prefHeight="50.0" prefWidth="130.0" style="-fx-font-weight: bold;" text="Rzeszów ul. Króla Augusta 1" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="300.0" style="-fx-font-weight: bold;" text="Godziny otwarcia:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="322.0" prefHeight="16.0" prefWidth="55.0" text="pon-pt:" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="70.0" layoutY="342.0" prefHeight="20.0" prefWidth="30.0" text="sob:" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="60.0" layoutY="364.0" prefHeight="20.0" prefWidth="40.0" text="niedz:" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="115.0" layoutY="322.0" prefHeight="20.0" prefWidth="50.0" text="9-13" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="115.0" layoutY="363.0" prefHeight="22.0" prefWidth="79.0" text="nieczynne" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="115.0" layoutY="342.0" prefHeight="20.0" prefWidth="62.0" text="9-17" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="15.0" layoutY="30.0" pickOnBounds="true">
+               <image>
+                  <Image url="@foto/logo.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="200.0" prefWidth="370.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="47.0" layoutY="179.0" text="Hasło" textFill="WHITE" />
+            <Label layoutX="47.0" layoutY="135.0" text="Nazwa Uzytkownika" textFill="WHITE" />
+            <TextField fx:id="loginTextField" layoutX="177.0" layoutY="131.0" promptText="Login">
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </TextField>
+            <PasswordField fx:id="hasloPasswordField" layoutX="177.0" layoutY="175.0" promptText="Hasło">
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </PasswordField>
+            <Button fx:id="loginButton" layoutX="45.0" layoutY="246.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="42.0" prefWidth="282.0" style="-fx-font-weight: bold;" text="Zaloguj się">>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </Button>
+            <Button fx:id="guestButton" layoutX="45.0" layoutY="304.0" mnemonicParsing="false" onAction="#guestButtonOnAction" prefHeight="42.0" prefWidth="282.0" style="-fx-font-weight: bold;" text="Wejdź jakos gość">>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </Button>
+            <Label fx:id="komunikatLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="202.0" prefHeight="42.0" prefWidth="200.0" textAlignment="CENTER" textFill="#e84949" wrapText="true">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="rejestracjaLabel" alignment="CENTER" layoutX="104.0" layoutY="352.0" text="Nie masz konta? Zarejestruj się" textAlignment="CENTER" textFill="#ff6363" underline="true">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ImageView blendMode="SRC_ATOP" fitHeight="97.0" fitWidth="370.0" layoutX="1.0" pickOnBounds="true">
+               <image>
+                  <Image url="@foto/book.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
