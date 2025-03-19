@@ -65,8 +65,25 @@ public class RegistrationController {
     }
 
     public void guestButtonOnAction(ActionEvent event)  {
-        Stage stage = (Stage) guestButton.getScene().getWindow();
-        stage.close();
+        try {
+            // Ładowanie widoku guest-view.fxml
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("guest-view.fxml"));
+            if (fxmlLoader.getLocation() == null) {
+                System.out.println("Błąd: Nie znaleziono pliku guest-view.fxml");
+                return;
+            }
+            // Załaduj widok do nowej sceny
+            BorderPane root = fxmlLoader.load();
+
+            // Pobranie bieżącego okna i ustawienie nowej sceny
+            Stage stage = (Stage) guestButton.getScene().getWindow();
+            Scene scene = new Scene(root, 1000, 600);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd wczytywania pliku FXML");
+        }
     }
 
     private void otworzRejestracje(javafx.scene.input.MouseEvent mouseEvent) {
