@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -82,14 +81,8 @@
    <right>
       <AnchorPane prefHeight="200.0" prefWidth="370.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="47.0" layoutY="179.0" text="Hasło" textFill="WHITE">
-               <effect>
-                  <DropShadow height="5.0" radius="2.0" spread="0.85" width="5.0" />
-               </effect></Label>
-            <Label layoutX="47.0" layoutY="135.0" text="Nazwa Uzytkownika" textFill="WHITE">
-               <effect>
-                  <DropShadow height="5.0" radius="2.0" spread="0.85" width="5.0" />
-               </effect></Label>
+            <Label layoutX="47.0" layoutY="179.0" style="-fx-font-weight: BOLD;" text="Hasło" />
+            <Label layoutX="47.0" layoutY="135.0" style="-fx-font-weight: BOLD;" text="Nazwa Użytkownika" />
             <TextField fx:id="loginTextField" layoutX="177.0" layoutY="131.0" promptText="Login">
                <effect>
                   <InnerShadow />
