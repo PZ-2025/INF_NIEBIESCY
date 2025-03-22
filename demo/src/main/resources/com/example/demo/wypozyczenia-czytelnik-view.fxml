@@ -5,9 +5,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -75,12 +72,6 @@
          <children>
             <AnchorPane prefHeight="57.0" prefWidth="643.0" style="-fx-border-color: #A3A3A3; -fx-border-width: 0 0 2 0;">
                <children>
-                  <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="591.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@foto/lupa.png" />
-                     </image>
-                  </ImageView>
-                  <TextField layoutX="434.0" layoutY="16.0" promptText="Wyszukaj nazwiska" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="14.0" prefHeight="30.0" prefWidth="177.0" style="-fx-font-weight: BOLD;" text="WYPOŻYCZENIA">
                      <font>
                         <Font size="18.0" />
