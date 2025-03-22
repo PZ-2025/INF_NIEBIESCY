@@ -169,85 +169,248 @@
                         </HBox>
                         <CardPane prefHeight="277.0" prefWidth="611.0">
                            <items>
-                              <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="555.0">
+                              <ScrollPane>
+                                 <content>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="555.0">
+                                       <children>
+                                          <VBox prefWidth="422.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="Tytuł książki1">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                                <HBox prefHeight="22.0" prefWidth="422.0">
+                                                   <children>
+                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="233.0" text="Wypożyczono:">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                      </Label>
+                                                      <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="01-01-2025">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="22.0" prefWidth="422.0">
+                                                   <children>
+                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="233.0" text="Termin oddania:">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                      </Label>
+                                                      <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="01-01-2025">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                          <Button mnemonicParsing="false" text="Oddano książkę">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </content>
+                              </ScrollPane>
+                              <HBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="555.0">
                                  <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="Tytuł książki1">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                    </Label>
-                                    <Button mnemonicParsing="false" text="Oznacz jako oddane">
+                                    <VBox prefWidth="422.0">
+                                       <children>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="Tytuł książki2">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </Label>
+                                          <HBox prefHeight="22.0" prefWidth="422.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="233.0" text="Wypożyczono:">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="01-01-2025">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="22.0" prefWidth="422.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="233.0" text="Termin oddania:">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="01-01-2025">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <Button mnemonicParsing="false" text="Oddano książkę">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="555.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="555.0">
                                  <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="Tytuł książki2">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                    </Label>
-                                    <Button mnemonicParsing="false" text="Oznacz jako oddane">
+                                    <VBox prefWidth="422.0">
+                                       <children>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="Tytuł książki3">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </Label>
+                                          <HBox prefHeight="22.0" prefWidth="422.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="233.0" text="Wypożyczono:">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="01-01-2025">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="22.0" prefWidth="422.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="233.0" text="Termin oddania:">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="01-01-2025">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <Button mnemonicParsing="false" text="Oddano książkę">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="555.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="555.0">
                                  <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="Tytuł książki3">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                    </Label>
-                                    <Button mnemonicParsing="false" text="Oznacz jako oddane">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="555.0">
-                                 <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="Tytuł książki4">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                    </Label>
-                                    <Button mnemonicParsing="false" text="Oznacz jako oddane">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="555.0">
-                                 <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="Tytuł książki5">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                    </Label>
-                                    <Button mnemonicParsing="false" text="Oznacz jako oddane">
+                                    <VBox prefWidth="422.0">
+                                       <children>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="Tytuł książki4">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </Label>
+                                          <HBox prefHeight="22.0" prefWidth="422.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="233.0" text="Wypożyczono:">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="01-01-2025">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="22.0" prefWidth="422.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="233.0" text="Termin oddania:">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="399.0" text="01-01-2025">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <Button mnemonicParsing="false" text="Oddano książkę">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
