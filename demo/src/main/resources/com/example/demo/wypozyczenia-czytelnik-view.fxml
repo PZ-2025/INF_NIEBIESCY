@@ -146,6 +146,26 @@
                               </Label>
                            </children>
                         </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="572.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="177.0" text="Nr telefonu:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Label>
+                              <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="177.0" text="...">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Label>
+                           </children>
+                        </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="572.0">
                            <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="249.0" style="-fx-font-weight: BOLD;" text="Obecne wypożyczenia:">
