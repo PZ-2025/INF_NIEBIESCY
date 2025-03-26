@@ -176,6 +176,11 @@
                                     <Insets />
                                  </opaqueInsets>
                               </Label>
+                              <Button mnemonicParsing="false" text="Dodaj">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </HBox>
                         <CardPane prefHeight="277.0" prefWidth="611.0">
