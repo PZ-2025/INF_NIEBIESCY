@@ -11,9 +11,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.paint.Color;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class RegistrationController {
 
@@ -24,13 +27,17 @@ public class RegistrationController {
     @FXML
     private Label komunikatLabel;
     @FXML
-    private TextField loginTextField;
+    private TextField imieTextField;
+    @FXML
+    private TextField nazwiskoTextField;
     @FXML
     private PasswordField hasloPasswordField;
     @FXML
     private PasswordField haslo2PasswordField;
     @FXML
     private TextField emailTextField;
+    @FXML
+    private TextField telefonTextField;
     @FXML
     private TextField miastoTextField;
     @FXML
@@ -43,24 +50,54 @@ public class RegistrationController {
     }
 
     public void registerButtonOnAction(ActionEvent event) {
-        String login = loginTextField.getText();
+        String imie = imieTextField.getText();
+        String nazwisko = nazwiskoTextField.getText();
+        String email = emailTextField.getText();
         String password = hasloPasswordField.getText();
         String password2 = haslo2PasswordField.getText();
-        String email = emailTextField.getText();
+        String telefon = telefonTextField.getText();
         String miasto = (miastoTextField.getText());
         String adres = adresTextField.getText();
         komunikatLabel.setTextFill(Color.valueOf("#ff6363"));
-        if (login.isEmpty() || password.isEmpty() || password2.isEmpty() || email.isEmpty() || miasto.isEmpty() || adres.isEmpty()) {
+        if (imie.isEmpty() || nazwisko.isEmpty() || email.isEmpty() || password.isEmpty() || password2.isEmpty() || miasto.isEmpty() || adres.isEmpty()) {
             komunikatLabel.setText("Wszystkie pola muszą być wypełnione");
         } else if (!password.equals(password2)) {
             komunikatLabel.setText("Hasła się różnią");
-        } else if (login.equals("admin")){
-            komunikatLabel.setText("Login jest już zajęty");
         } else if (email.equals("admin")) {
             komunikatLabel.setText("Email jest już zajęty");
         } else {
             komunikatLabel.setTextFill(Color.GREEN);
             komunikatLabel.setText("Pomyslnie zarejestrowano");
+
+            DatabaseConnection conectNow = new DatabaseConnection();
+            Connection connectDB = conectNow.getConnection();
+
+            String query = "INSERT INTO czytelnicy (imie, nazwisko, tel, email, haslo, ulica, miasto) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            try (PreparedStatement preparedStatement = connectDB.prepareStatement(query)) {
+                // Zabezpieczamy hasło przez haszowanie (np. za pomocą BCrypt)
+                String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+                // Ustawiamy wartości parametrów zapytania
+                preparedStatement.setString(1, imie);       // Ustawiamy imię
+                preparedStatement.setString(2, nazwisko);   // Ustawiamy nazwisko
+                preparedStatement.setLong(3, Long.parseLong(telefon));      // Ustawiamy telefon (bigint)
+                preparedStatement.setString(4, email);      // Ustawiamy email
+                preparedStatement.setString(5, hashedPassword);  // Ustawiamy hasło (zaszyfrowane)
+                preparedStatement.setString(6, adres);     // Ustawiamy ulicę (adres)
+                preparedStatement.setString(7, miasto);    // Ustawiamy miasto
+
+                // Wykonujemy zapytanie do bazy danych
+                int result = preparedStatement.executeUpdate();
+                if (result > 0) {
+                    komunikatLabel.setText("Zarejestrowano pomyślnie");
+                } else {
+                    komunikatLabel.setText("Wystąpił problem z rejestracją");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                komunikatLabel.setText("Błąd połączenia z bazą danych");
+            }
         }
     }
 
@@ -102,5 +139,13 @@ public class RegistrationController {
             e.printStackTrace();
             System.out.println("Błąd wczytywania pliku FXML");
         }
+    }
+
+    public Button getRegisterButton() {
+        return registerButton;
+    }
+
+    public void setRegisterButton(Button registerButton) {
+        this.registerButton = registerButton;
     }
 }

@@ -81,18 +81,18 @@
    <right>
       <AnchorPane prefHeight="200.0" prefWidth="370.0" scaleShape="false" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="28.0" prefWidth="150.0" text="Nazwa Uzytkownika" textFill="WHITE" />
-            <TextField fx:id="loginTextField" layoutX="166.0" layoutY="24.0" promptText="Login">
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="28.0" prefWidth="150.0" text="Imie:" textFill="WHITE" />
+            <TextField fx:id="imieTextField" layoutX="166.0" layoutY="24.0" promptText="Imie">
                <effect>
                   <InnerShadow />
                </effect>
             </TextField>
-            <PasswordField fx:id="hasloPasswordField" layoutX="166.0" layoutY="58.0" promptText="Hasło">
+            <PasswordField fx:id="hasloPasswordField" layoutX="166.0" layoutY="91.0" promptText="Hasło">
                <effect>
                   <InnerShadow />
                </effect>
             </PasswordField>
-            <Button fx:id="registerButton" contentDisplay="CENTER" layoutX="44.0" layoutY="259.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="42.0" prefWidth="282.0" style="-fx-font-weight: bold;" text="Zarejestruj się">
+            <Button fx:id="registerButton" contentDisplay="CENTER" layoutX="44.0" layoutY="284.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="42.0" prefWidth="282.0" style="-fx-font-weight: bold;" text="Zarejestruj się">
                <font>
                   <Font size="14.0" />
                </font>
@@ -105,37 +105,37 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="mamKontoLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="367.0" text="Mam konto" textAlignment="CENTER" textFill="#ff6363" underline="true">
+            <Label fx:id="mamKontoLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="152.0" layoutY="377.0" text="Mam konto" textAlignment="CENTER" textFill="#ff6363" underline="true">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="2.0" layoutY="96.0" prefHeight="17.0" prefWidth="150.0" text="Powtórz hasło" textFill="WHITE" />
-            <PasswordField fx:id="haslo2PasswordField" layoutX="166.0" layoutY="92.0" promptText="Powtórz hasło">
+            <Label alignment="CENTER_RIGHT" layoutX="2.0" layoutY="128.0" prefHeight="17.0" prefWidth="150.0" text="Powtórz hasło:" textFill="WHITE" />
+            <PasswordField fx:id="haslo2PasswordField" layoutX="166.0" layoutY="124.0" promptText="Powtórz hasło">
                <effect>
                   <InnerShadow />
                </effect>
             </PasswordField>
-            <Label alignment="CENTER_RIGHT" layoutX="2.0" layoutY="62.0" prefWidth="150.0" text="Hasło" textFill="WHITE" />
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="130.0" prefWidth="150.0" text="Email" textFill="WHITE" />
-            <TextField fx:id="emailTextField" layoutX="166.0" layoutY="126.0" promptText="Email">
+            <Label alignment="CENTER_RIGHT" layoutX="2.0" layoutY="95.0" prefWidth="150.0" text="Hasło:" textFill="WHITE" />
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="161.0" prefWidth="150.0" text="Email:" textFill="WHITE" />
+            <TextField fx:id="emailTextField" layoutX="166.0" layoutY="157.0" promptText="Email">
                <effect>
                   <InnerShadow />
                </effect>
             </TextField>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="166.0" prefWidth="150.0" text="Miasto:" textFill="WHITE" />
-            <TextField fx:id="miastoTextField" layoutX="166.0" layoutY="162.0" promptText="Miasto">
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="224.0" prefWidth="150.0" text="Miasto:" textFill="WHITE" />
+            <TextField fx:id="miastoTextField" layoutX="166.0" layoutY="220.0" promptText="Miasto">
                <effect>
                   <InnerShadow />
                </effect>
             </TextField>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="204.0" prefWidth="150.0" text="Adres" textFill="WHITE" />
-            <TextField fx:id="adresTextField" layoutX="166.0" layoutY="200.0" promptText="ul. nr. domu/mieszkania">
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="255.0" prefWidth="150.0" text="Ulica" textFill="WHITE" />
+            <TextField fx:id="adresTextField" layoutX="166.0" layoutY="251.0" promptText="ul. nr. domu/mieszkania">
                <effect>
                   <InnerShadow />
                </effect>
             </TextField>
-            <Button fx:id="guestButton" contentDisplay="CENTER" layoutX="44.0" layoutY="314.0" mnemonicParsing="false" onAction="#guestButtonOnAction" prefHeight="42.0" prefWidth="282.0" style="-fx-font-weight: bold;" text="Wejdź jako gość">
+            <Button fx:id="guestButton" contentDisplay="CENTER" layoutX="44.0" layoutY="335.0" mnemonicParsing="false" onAction="#guestButtonOnAction" prefHeight="42.0" prefWidth="282.0" style="-fx-font-weight: bold;" text="Wejdź jako gość">
                <font>
                   <Font size="14.0" />
                </font>
@@ -143,6 +143,18 @@
                   <InnerShadow />
                </effect>
             </Button>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="62.0" prefWidth="150.0" text="Nazwisko:" textFill="WHITE" />
+            <TextField fx:id="nazwiskoTextField" layoutX="166.0" layoutY="58.0" promptText="Nazwisko">
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </TextField>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="193.0" prefWidth="150.0" text="Telefeon:" textFill="WHITE" />
+            <TextField fx:id="telefonTextField" layoutX="166.0" layoutY="189.0" promptText="Numer telfonu">
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </TextField>
          </children>
       </AnchorPane>
    </right>

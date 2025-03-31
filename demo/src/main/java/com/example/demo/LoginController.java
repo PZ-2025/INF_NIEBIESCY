@@ -11,9 +11,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class LoginController {
     @FXML
@@ -29,6 +33,12 @@ public class LoginController {
     @FXML
     private Label rejestracjaLabel;
 
+    private DatabaseConnection databaseConnection;
+
+    public LoginController() {
+        databaseConnection = new DatabaseConnection();
+    }
+
     public void initialize() {
         rejestracjaLabel.setOnMouseClicked(this::otworzRejestracje);
     }
@@ -40,12 +50,44 @@ public class LoginController {
 
         if (username.isEmpty() || password.isEmpty()) {
             komunikatLabel.setText("Wszystkie pola muszą być wypełnione");
-        } else if (username.equals("admin") && password.equals("admin123")) {
-            komunikatLabel.setTextFill(Color.GREEN);
-            komunikatLabel.setText("Zostales zalogowany jako " + username);
-        } else {
-            komunikatLabel.setText("Niepoprawny login lub hasło");
         }
+
+        Czytelnik czytelnik = authenticateUser(username, password);
+
+        if (czytelnik != null) {
+            komunikatLabel.setTextFill(Color.GREEN);
+            komunikatLabel.setText("Zostales zalogowany jako " + czytelnik.getImie() + " " + czytelnik.getNazwisko());
+        } else {
+            komunikatLabel.setText("Niepoprawny email lub hasło");
+        }
+    }
+
+    private Czytelnik authenticateUser(String login, String haslo) {
+        String query = "SELECT * FROM czytelnicy WHERE email = ?";
+
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, login);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String storedHashedPassword = resultSet.getString("haslo");  // Pobieramy zahaszowane hasło z bazy
+
+                // Sprawdzamy, czy hasło pasuje do zahaszowanego hasła
+                if (BCrypt.checkpw(haslo, storedHashedPassword)) {
+                    int id = resultSet.getInt("id_czytelnika");
+                    String imie = resultSet.getString("imie");
+                    String nazwisko = resultSet.getString("nazwisko");
+
+                    // Tworzymy obiekt Czytelnik
+                    return new Czytelnik(id, login, storedHashedPassword, imie, nazwisko);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void guestButtonOnAction(ActionEvent event)  {

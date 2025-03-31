@@ -82,8 +82,8 @@
       <AnchorPane prefHeight="200.0" prefWidth="370.0" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="47.0" layoutY="179.0" style="-fx-font-weight: BOLD;" text="Hasło" />
-            <Label layoutX="47.0" layoutY="135.0" style="-fx-font-weight: BOLD;" text="Nazwa Użytkownika" />
-            <TextField fx:id="loginTextField" layoutX="177.0" layoutY="131.0" promptText="Login">
+            <Label layoutX="47.0" layoutY="135.0" style="-fx-font-weight: BOLD;" text="Adres email" />
+            <TextField fx:id="loginTextField" layoutX="177.0" layoutY="131.0" promptText="Email">
                <effect>
                   <InnerShadow />
                </effect>
