@@ -52,7 +52,7 @@ public class DatabaseMigration {
                 }
             }
 
-            System.out.println("✅ Struktura bazy danych utworzona z pliku " + sqlFilePath);
+            System.out.println("✅ Struktura bazy danych utworzona");
         } catch (Exception e) {
             System.err.println("❌ Błąd podczas wykonywania migracji: " + e.getMessage());
         }
