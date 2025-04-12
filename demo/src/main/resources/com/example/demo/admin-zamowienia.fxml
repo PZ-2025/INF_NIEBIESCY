@@ -74,12 +74,9 @@
                   <TableView layoutX="19.0" layoutY="5.0" prefHeight="378.0" prefWidth="653.0">
                      <columns>
                         <TableColumn prefWidth="42.399961948394775" text="ID" />
-                        <TableColumn prefWidth="94.39997100830078" text="Tytuł" />
-                        <TableColumn prefWidth="114.39996337890625" text="Autor" />
-                        <TableColumn prefWidth="77.0" text="Rok wydania" />
-                        <TableColumn prefWidth="114.0" text="Wydawnictwo" />
-                        <TableColumn prefWidth="151.0" text="ISBN" />
-                        <TableColumn prefWidth="57.0" text="Ilość" />
+                        <TableColumn prefWidth="225.0" text="Tytuł" />
+                        <TableColumn prefWidth="266.0" text="Autor" />
+                        <TableColumn prefWidth="117.0" text="Ilość" />
                      </columns>
                   </TableView>
                   <Button layoutX="99.0" layoutY="396.0" mnemonicParsing="false" text="Historia zamówień">
