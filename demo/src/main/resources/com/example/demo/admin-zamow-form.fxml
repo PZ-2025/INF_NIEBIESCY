@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="542.0" style="-fx-background-color: #70B1FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane alignment="TOP_CENTER" layoutX="44.0" layoutY="85.0" prefHeight="235.0" prefWidth="465.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="7.999967956542946" prefWidth="145.39996337890625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.600032043457" minWidth="0.0" prefWidth="320.0000366210937" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Tytuł" textFill="WHITE">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="Autor" textFill="WHITE" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="Rok wydania" textFill="WHITE" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="Wydawnictwo" textFill="WHITE" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="ISBN" textFill="WHITE" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="Ilość" textFill="WHITE" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField prefHeight="26.0" prefWidth="175.0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField prefHeight="73.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField prefHeight="73.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField prefHeight="73.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField prefHeight="73.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label text="Dostawca" textFill="WHITE" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Adres" textFill="WHITE" GridPane.rowIndex="7">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
+      <Button layoutX="66.0" layoutY="341.0" mnemonicParsing="false" text="Zamów">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="143.0" layoutY="341.0" mnemonicParsing="false" text="Wróć">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="41.0" layoutY="35.0" prefHeight="30.0" prefWidth="177.0" style="-fx-font-weight: BOLD;" text="Zamów książki">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Label>
+   </children>
+</AnchorPane>
