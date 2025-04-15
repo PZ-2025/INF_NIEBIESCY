@@ -1,0 +1,1 @@
+UPDATE ksiazki SET tytul = 'Granic', id_autora = '6', wydawnictwo = 'Wydawnictwo F', ISBN = '978-83-1234-567-2', ilosc = '11' WHERE ksiazki.id_ksiazki = 200

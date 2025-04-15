@@ -1,0 +1,1 @@
+INSERT INTO wypozyczenia (id_wypozyczenia, id_ksiazki, id_czytelnika, data_rezerwacji, data_oddania) VALUES (NULL, '10', '2', current_timestamp(), NULL)

@@ -1,0 +1,1 @@
+SELECT imie,nazwisko,email,rola FROM pracownicy
