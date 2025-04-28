@@ -1,1 +1,0 @@
-UPDATE pracownicy SET rola = 'admin' WHERE id_pracownika = 1

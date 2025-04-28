@@ -1,1 +1,0 @@
-INSERT INTO czytelnicy (id_czytelnika, imie, nazwisko, tel, email, haslo, ulica, miasto) VALUES (NULL, 'Jan', 'Kowalski', '133425425', 'jKowalski@gmail.com', 'jan123', 'piękna 2', 'Rzeszów')

@@ -1,1 +1,0 @@
-UPDATE wypozyczenia SET data_oddania = '2025-04-24 19:51:39' WHERE id_wypozyczenia = 2

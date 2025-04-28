@@ -1,1 +1,0 @@
-SELECT w.id_wypozyczenia,k.tytul,a.nazwa,k.ISBN,w.data_rezerwacji,w.data_oddania FROM wypozyczenia w JOIN ksiazki k JOIN autorzy a ON w.id_ksiazki=k.id_ksiazki AND a.id_autora=k.id_autora

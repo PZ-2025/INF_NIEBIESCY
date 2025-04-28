@@ -1,1 +1,0 @@
-SELECT k.id_ksiazki,k.tytul,a.nazwa,k.data_dodania,k.wydawnictwo,k.ISBN,k.ilosc FROM ksiazki k JOIN autorzy a ON k.id_ksiazki=a.id_autora WHERE k.tytul LIKE 'Pan%' ORDER BY k.id_ksiazki;

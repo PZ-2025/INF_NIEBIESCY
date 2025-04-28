@@ -1,1 +1,0 @@
-INSERT INTO ksiazki (id_ksiazki, tytul, id_autora, wydawnictwo, data_dodania, ISBN, ilosc) VALUES (NULL, 'Latarnik', '2', 'Wydawnictwo G', '2025-04-14 18:52:18.000000', '978-83-1234-267-2', '10')

@@ -1,1 +1,0 @@
-SELECT z.id_zamowienia,k.tytul,a.nazwa,k.data_dodania,k.wydawnictwo,k.ISBN,k.ilosc,d.nazwa_dostawcy,d.adres FROM zamowienia z JOIN dostawcy d JOIN ksiazki k JOIN autorzy a ON k.id_ksiazki=z.id_ksiazki AND z.id_dostawcy=d.id_dostawcy AND a.id_autora=k.id_autora;

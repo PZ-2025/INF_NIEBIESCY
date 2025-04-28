@@ -1,1 +1,0 @@
-SELECT imie,nazwisko,email,rola FROM pracownicy WHERE nazwisko LIKE 'd%';
