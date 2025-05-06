@@ -1,3 +1,6 @@
+/*
+ * Kontroler dla panelu rejestracji
+ */
 package com.example.demo;
 
 import javafx.event.ActionEvent;

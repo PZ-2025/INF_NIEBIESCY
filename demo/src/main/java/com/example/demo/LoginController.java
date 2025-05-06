@@ -1,3 +1,6 @@
+/*
+ * Kontroler dla panelu logowania
+ */
 package com.example.demo;
 
 import javafx.fxml.FXML;
@@ -57,6 +60,26 @@ public class LoginController {
         if (czytelnik != null) {
             komunikatLabel.setTextFill(Color.GREEN);
             komunikatLabel.setText("Zostales zalogowany jako " + czytelnik.getImie() + " " + czytelnik.getNazwisko());
+
+            try {
+                // Ładowanie widoku czytelnik-dostepne-ksiazki-view.fxml
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("czytelnik-dostepne-ksiazki-view.fxml"));
+                if (fxmlLoader.getLocation() == null) {
+                    System.out.println("Błąd: Nie znaleziono pliku czytelnik-dostepne-ksiazki-view.fxml");
+                    return;
+                }
+                // Załaduj widok do nowej sceny
+                BorderPane root = fxmlLoader.load();
+
+                // Pobranie bieżącego okna i ustawienie nowej sceny
+                Stage stage = (Stage) loginButton.getScene().getWindow();
+                Scene scene = new Scene(root, 1000, 600);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Błąd wczytywania pliku FXML");
+            }
         } else {
             komunikatLabel.setText("Niepoprawny email lub hasło");
         }

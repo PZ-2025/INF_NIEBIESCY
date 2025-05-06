@@ -2,13 +2,18 @@ package com.example.demo;
 
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.control.ScrollPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,12 +21,23 @@ public class GuestController {
 
     @FXML
     private VBox alphabetBox;  // VBox w FXML, w którym będą wyświetlane litery i autorzy
+    @FXML
+    private Label loginButton;
+    @FXML
+    private Label booksButton;
+    @FXML
+    private Label registerButton;
+
 
     // Mapa liter alfabetu i przypisanych autorów
     private Map<String, String[]> authorsMap = new HashMap<>();
 
     @FXML
     public void initialize() {
+        loginButton.setOnMouseClicked(this::otworzLogowanie);
+        booksButton.setOnMouseClicked(this::otworzKsiegozbior);
+        registerButton.setOnMouseClicked(this::otworzRejestracje);
+
         // Wstępnie zdefiniowane przykłady autorów
         authorsMap.put("A", new String[]{"Albert Einstein", "Ambroży"});
         authorsMap.put("B", new String[]{"Bolek", "Bartosz"});
@@ -91,6 +107,59 @@ public class GuestController {
         alphabetBox.getChildren().add(letterSection);
     }
 
+    private void otworzLogowanie(javafx.scene.input.MouseEvent mouseEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+            if (fxmlLoader.getLocation() == null) {
+                System.out.println("Błąd: Nie znaleziono pliku login-view.fxml");
+                return;
+            }
+            BorderPane root = fxmlLoader.load();
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            Scene scene = new Scene(root, 600, 400);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd wczytywania pliku FXML");
+        }
+    }
+
+    private void otworzKsiegozbior(javafx.scene.input.MouseEvent mouseEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("guest-view.fxml"));
+            if (fxmlLoader.getLocation() == null) {
+                System.out.println("Błąd: Nie znaleziono pliku czytelnik-dostepne-ksiazki-view.fxml");
+                return;
+            }
+            BorderPane root = fxmlLoader.load();
+            Stage stage = (Stage) booksButton.getScene().getWindow();
+            Scene scene = new Scene(root, 1000, 600);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd wczytywania pliku FXML");
+        }
+    }
+
+    private void otworzRejestracje(javafx.scene.input.MouseEvent mouseEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("rejestracja-view.fxml"));
+            if (fxmlLoader.getLocation() == null) {
+                System.out.println("Błąd: Nie znaleziono pliku rejestracja-view.fxml");
+                return;
+            }
+            BorderPane root = fxmlLoader.load();
+            Stage stage = (Stage) registerButton.getScene().getWindow();
+            Scene scene = new Scene(root, 600, 400);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd wczytywania pliku FXML");
+        }
+    }
 }
 
 
