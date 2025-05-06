@@ -134,12 +134,12 @@
             </Label>
          </children>
       </GridPane>
-      <Button layoutX="66.0" layoutY="341.0" mnemonicParsing="false" text="Zamów">
+      <Button fx:id="orderButton" layoutX="66.0" layoutY="341.0" mnemonicParsing="false" text="Zamów">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="143.0" layoutY="341.0" mnemonicParsing="false" text="Wróć">
+      <Button fx:id="returnButton" layoutX="143.0" layoutY="341.0" mnemonicParsing="false" text="Wróć">
          <font>
             <Font size="14.0" />
          </font>

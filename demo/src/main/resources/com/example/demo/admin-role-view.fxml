@@ -23,7 +23,7 @@
             <ComboBox prefHeight="167.0" prefWidth="381.0" promptText="Wybierz rolę" />
          </children>
       </GridPane>
-      <Button layoutX="166.0" layoutY="202.0" mnemonicParsing="false" text="Zapisz">
+      <Button fx:id="saveButton" layoutX="166.0" layoutY="202.0" mnemonicParsing="false" text="Zapisz">
          <font>
             <Font size="14.0" />
          </font>
