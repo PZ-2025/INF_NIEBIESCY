@@ -1,6 +1,13 @@
 package com.example.demo;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Book {
     private final SimpleStringProperty autor;
@@ -24,5 +31,10 @@ public class Book {
     public void setTytul(String value) { tytul.set(value); }
     public void setWydawnictwo(String value) { wydawnictwo.set(value); }
     public void setIlosc(String value) { ilosc.set(value); }
+
+
+
+
+
 }
 

@@ -113,6 +113,12 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itext7-core</artifactId>
+            <version>8.0.2</version>
+            <type>pom</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -124,6 +130,7 @@
                 <configuration>
                     <source>23</source>
                     <target>23</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
             <plugin>

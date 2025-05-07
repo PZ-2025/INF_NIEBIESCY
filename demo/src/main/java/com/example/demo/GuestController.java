@@ -14,8 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -201,29 +199,10 @@ public class GuestController {
         DatabaseConnection connection = new DatabaseConnection();
         Connection conn = connection.getConnection();
 
-        String query = "SELECT ksiazki.*, autorzy.nazwa FROM ksiazki INNER JOIN autorzy ON ksiazki.id_autora = autorzy.id_autora";
+        BookDAO dao = new BookDAO();
+        ObservableList<Book> books = dao.loadBooksFromDatabase(conn);
 
-        ObservableList<Book> books = FXCollections.observableArrayList();
-
-        try {
-            PreparedStatement statement = conn.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                String autor = resultSet.getString("nazwa"); // Złączony autor
-                String tytul = resultSet.getString("tytul");
-                String wydawnictwo = resultSet.getString("wydawnictwo");
-                String ilosc = resultSet.getString("ilosc");
-
-                books.add(new Book(autor, tytul, wydawnictwo, ilosc));
-            }
-
-            // Ustawienie danych do tabeli
-            booksTable.setItems(books);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        booksTable.setItems(books);
     }
 
     private void loadBooksByAuthor(String authorName) {

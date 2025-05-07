@@ -15,6 +15,9 @@ module com.example.demo {
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires jbcrypt;
+    requires kernel;
+    requires layout;
+    requires io;
 
 
     opens com.example.demo to javafx.fxml;
