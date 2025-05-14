@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,10 +36,6 @@ public class Book {
     public void setGatunek(String value) { gatunek.set(value); }
     public void setWydawnictwo(String value) { wydawnictwo.set(value); }
     public void setIlosc(String value) { ilosc.set(value); }
-
-
-
-
-
+    
 }
 

@@ -43,20 +43,18 @@
             <children>
                 <AnchorPane layoutY="57.0" prefHeight="498.0" prefWidth="796.0" style="-fx-background-color: #70B1FF;">
                     <children>
-                        <Button layoutX="19.0" layoutY="396.0" mnemonicParsing="false" text="Zarezerwuj">
+                        <Button fx:id="rezerwuj" layoutX="19.0" layoutY="396.0" mnemonicParsing="false" text="Zarezerwuj">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Button>
-                        <TableView layoutX="19.0" layoutY="14.0" prefHeight="378.0" prefWidth="759.0">
+                        <TableView fx:id="tableBooks" layoutX="19.0" layoutY="14.0" prefHeight="378.0" prefWidth="800.0">
                             <columns>
-                                <TableColumn prefWidth="40.0" text="ID" />
-                                <TableColumn prefWidth="180.0" text="Tytuł" />
-                                <TableColumn prefWidth="140.0" text="Autor" />
-                                <TableColumn prefWidth="100.0" text="Rok wydania" />
-                                <TableColumn prefWidth="140.0" text="Wydawnictwo" />
-                                <TableColumn prefWidth="90.0" text="ISBN" />
-                                <TableColumn prefWidth="60.0" text="Dostępne" />
+                                <TableColumn fx:id="tytul" prefWidth="220.0" text="Tytuł" />
+                                <TableColumn fx:id="autor" prefWidth="150.0" text="Autor" />
+                                <TableColumn fx:id="gatunek" prefWidth="150.0" text="Gatunek" />
+                                <TableColumn fx:id="dostepne" prefWidth="70.0" text="Dostępne" />
+                                <TableColumn fx:id="checkbox" prefWidth="25.0" text="[ ]" />
                             </columns>
                         </TableView>
                     </children>

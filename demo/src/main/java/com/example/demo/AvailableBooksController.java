@@ -19,6 +19,11 @@ public class AvailableBooksController {
     @FXML
     private Label logoutButton;
 
+    private Czytelnik aktualnyCzytelnik;
+    public void setAktualnyCzytelnik(Czytelnik czytelnik) {
+        this.aktualnyCzytelnik = czytelnik;
+    }
+
     public void initialize() {
         historyButton.setOnMouseClicked(this::otworzHistorie);
         booksButton.setOnMouseClicked(this::otworzKsiegozbior);
@@ -34,6 +39,9 @@ public class AvailableBooksController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            AvailableBooksController controller = fxmlLoader.getController();
+            controller.setAktualnyCzytelnik(aktualnyCzytelnik);
+
             Stage stage = (Stage) historyButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
@@ -52,6 +60,9 @@ public class AvailableBooksController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+//            AvailableBooksController controller = fxmlLoader.getController();
+//            controller.setAktualnyCzytelnik(aktualnyCzytelnik);
+
             Stage stage = (Stage) booksButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
@@ -70,6 +81,9 @@ public class AvailableBooksController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            ReservationController controller = fxmlLoader.getController();
+            controller.setAktualnyCzytelnik(aktualnyCzytelnik);
+
             Stage stage = (Stage) reservationButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
@@ -88,6 +102,9 @@ public class AvailableBooksController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            AvailableBooksController controller = fxmlLoader.getController();
+            controller.setAktualnyCzytelnik(aktualnyCzytelnik);
+
             Stage stage = (Stage) logoutButton.getScene().getWindow();
             Scene scene = new Scene(root, 600, 400);
             stage.setScene(scene);

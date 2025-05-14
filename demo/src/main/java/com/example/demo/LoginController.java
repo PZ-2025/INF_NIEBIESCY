@@ -70,6 +70,8 @@ public class LoginController {
                 }
                 // Załaduj widok do nowej sceny
                 BorderPane root = fxmlLoader.load();
+                AvailableBooksController controller = fxmlLoader.getController();
+                controller.setAktualnyCzytelnik(czytelnik);
 
                 // Pobranie bieżącego okna i ustawienie nowej sceny
                 Stage stage = (Stage) loginButton.getScene().getWindow();
