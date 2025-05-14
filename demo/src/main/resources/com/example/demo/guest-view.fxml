@@ -78,6 +78,7 @@
                      <columns>
                         <TableColumn fx:id="autorColumn" prefWidth="144.0" text="Autor" />
                         <TableColumn fx:id="tytulColumn" prefWidth="230.0" text="Tytuł" />
+                        <TableColumn fx:id="gatunekColumn" prefWidth="230.0" text="Gatunek" />
                         <TableColumn fx:id="wydawnictwoColumn" prefWidth="136.0" text="Wydawnictwo" />
                         <TableColumn fx:id="iloscColumn" prefWidth="112.0" text="Ilość" />
                      </columns>

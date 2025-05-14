@@ -48,8 +48,69 @@ public class RegistrationController {
     @FXML
     private Label mamKontoLabel;
 
+    // Funkcja do dodawnia wielu uzytkownikow
+//    public void registerMultipleUsers() {
+//        // Definicja użytkowników w tablicy (25 użytkowników)
+//        String[][] users = {
+//                {"Ewa", "Kowalska", "ewa@wp.pl", "654321987", "Zielona 5", "Sanok", "ewa", "ewa"},
+//                {"Marek", "Zielinski", "marek@wp.pl", "112233445", "Brzozowa 9", "Przemysl", "marek", "marek"},
+//                {"Anna", "Wojcik", "anna@wp.pl", "667788990", "Sosnowa 12", "Mielec", "anna", "anna"},
+//                {"Piotr", "Szymanski", "piotr@wp.pl", "223344556", "Jasna 42", "Tarnobrzeg", "piotr", "piotr"},
+//                {"Monika", "Kwiatkowska", "monika@wp.pl", "556677889", "Pilsudskiego 7", "Debica", "monika", "monika"},
+//                {"Jan", "Kowalczyk", "jan@wp.pl", "776655443", "Lesna 13", "Zamosc", "jan", "jan"},
+//                {"Iwona", "Pawlak", "iwona@wp.pl", "998877665", "Laskowa 25", "Lublin", "iwona", "iwona"},
+//                {"Tomasz", "Kaczmarek", "tomasz@wp.pl", "334455667", "Gorzyska 12", "Kielce", "tomasz", "tomasz"},
+//                {"Barbara", "Wozniak", "barbara@wp.pl", "445566778", "Dabrowskiego 8", "Nowy Sącz", "barbara", "barbara"},
+//                {"Zbigniew", "Borkowski", "zbigniew@wp.pl", "556677889", "Zielona 3", "Lubin", "zbigniew", "zbigniew"},
+//                {"Katarzyna", "Wojciechowska", "katarzyna@wp.pl", "667788990", "Olsztynska 16", "Wroclaw", "katarzyna", "katarzyna"},
+//                {"Wojciech", "Kwiatkowski", "wojciech@wp.pl", "778899112", "Miejska 45", "Gorzów Wlkp.", "wojciech", "wojciech"},
+//                {"Jolanta", "Mazur", "jolanta@wp.pl", "889900223", "Nowa 29", "Opole", "jolanta", "jolanta"},
+//                {"Paweł", "Czarnecki", "pawel@wp.pl", "998811334", "Mickiewicza 51", "Katowice", "pawel", "pawel"},
+//                {"Beata", "Zielinska", "beata@wp.pl", "223344556", "Wiosny Ludow 19", "Wloclawek", "beata", "beata"},
+//                {"Rafał", "Kamiński", "rafal@wp.pl", "667788990", "Szeroka 3", "Bialystok", "rafal", "rafal"},
+//                {"Małgorzata", "Michałowska", "malgorzata@wp.pl", "334455667", "Polna 8", "Gdynia", "malgorzata", "malgorzata"},
+//                {"Waldemar", "Kaczmarek", "waldemar@wp.pl", "112233445", "Rynkowska 45", "Olsztyn", "waldemar", "waldemar"},
+//                {"Lena", "Jasińska", "lena@wp.pl", "223344556", "Sosnowa 12", "Zabrze", "lena", "lena"},
+//                {"Piotr", "Nowakowski", "piotr2@wp.pl", "332211445", "Jagiellonska 34", "Gdansk", "piotr", "piotr"},
+//                {"Agnieszka", "Sikora", "agnieszka@wp.pl", "667788990", "Kwiatowa 6", "Bielsko-Biala", "agnieszka", "agnieszka"},
+//                {"Grzegorz", "Jankowski", "grzegorz@wp.pl", "998877665", "Wolności 22", "Lodz", "grzegorz", "grzegorz"},
+//                {"Aleksandra", "Kalinowska", "aleksandra@wp.pl", "223344556", "Wysoka 17", "Szczecin", "aleksandra", "aleksandra"},
+//                {"Tadeusz", "Cieślak", "tadeusz@wp.pl", "112233445", "Dębowa 20", "Kraków", "tadeusz", "tadeusz"}
+//        };
+//
+//        DatabaseConnection conectNow = new DatabaseConnection();
+//        Connection connectDB = conectNow.getConnection();
+//        String query = "INSERT INTO czytelnicy (imie, nazwisko, tel, email, haslo, ulica, miasto) VALUES (?, ?, ?, ?, ?, ?, ?)";
+//
+//        try (PreparedStatement preparedStatement = connectDB.prepareStatement(query)) {
+//            for (String[] user : users) {
+//                // Haszowanie hasła (BCrypt)
+//                String hashedPassword = BCrypt.hashpw(user[6], BCrypt.gensalt());
+//
+//                // Ustawianie wartości parametrów zapytania
+//                preparedStatement.setString(1, user[0]);       // imie
+//                preparedStatement.setString(2, user[1]);       // nazwisko
+//                preparedStatement.setLong(3, Long.parseLong(user[3]));  // telefon
+//                preparedStatement.setString(4, user[2]);       // email
+//                preparedStatement.setString(5, hashedPassword); // hasło (zaszyfrowane)
+//                preparedStatement.setString(6, user[4]);       // adres
+//                preparedStatement.setString(7, user[5]);       // miasto
+//
+//                // Wykonanie zapytania
+//                preparedStatement.executeUpdate();
+//            }
+//            komunikatLabel.setText("Wszyscy użytkownicy zostali zarejestrowani.");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            komunikatLabel.setText("Błąd połączenia z bazą danych");
+//        }
+//    }
+
+
     public void initialize() {
         mamKontoLabel.setOnMouseClicked(this::otworzRejestracje);
+//        registerMultipleUsers();
+
     }
 
     public void registerButtonOnAction(ActionEvent event) {

@@ -10,6 +10,15 @@ CREATE TABLE IF NOT EXISTS `autorzy` (
     UNIQUE KEY `unique_nazwa` (`nazwa`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Tabela 'gatunek'
+CREATE TABLE IF NOT EXISTS `gatunek` (
+    `id_gatunku` int(11) NOT NULL AUTO_INCREMENT,
+    `nazwa_gatunku` varchar(50) NOT NULL,
+    PRIMARY KEY (`id_gatunku`),
+    UNIQUE KEY `unique_nazwa` (`nazwa_gatunku`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 -- Tabela 'czytelnicy'
 CREATE TABLE IF NOT EXISTS `czytelnicy` (
     `id_czytelnika` int(11) NOT NULL AUTO_INCREMENT,
@@ -38,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `ksiazki` (
     `id_ksiazki` int(11) NOT NULL AUTO_INCREMENT,
     `tytul` varchar(55) NOT NULL,
     `id_autora` int(11) NOT NULL,
+    `id_gatunku` int(11) NOT NULL,
     `wydawnictwo` varchar(30) NOT NULL,
     `data_dodania` DATETIME NOT NULL,
     `ISBN` varchar(20) NOT NULL,
@@ -45,6 +55,8 @@ CREATE TABLE IF NOT EXISTS `ksiazki` (
     PRIMARY KEY (`id_ksiazki`),
     KEY `fk_id_autora` (`id_autora`),
     FOREIGN KEY (`id_autora`) REFERENCES `autorzy` (`id_autora`),
+    KEY `fk_id_gatunku` (`id_gatunku`),
+    FOREIGN KEY (`id_gatunku`) REFERENCES `gatunek` (`id_gatunku`),
     UNIQUE KEY `unique_tytul` (`tytul`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -66,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `wypozyczenia` (
     `id_wypozyczenia` int(11) NOT NULL AUTO_INCREMENT,
     `id_ksiazki` int(11) NOT NULL,
     `id_czytelnika` int(11) NOT NULL,
-    `data_rezerwacji` datetime NOT NULL DEFAULT current_timestamp(),
+    `data_wypozyczenia` datetime NOT NULL DEFAULT current_timestamp(),
     `data_oddania` datetime DEFAULT NULL,
     PRIMARY KEY (`id_wypozyczenia`),
     KEY `fk_id_czytelnika` (`id_czytelnika`),

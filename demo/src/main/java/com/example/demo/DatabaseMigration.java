@@ -64,6 +64,11 @@ public class DatabaseMigration {
         importSQL(sqlFilePath, "autorzy");
     }
 
+    public static void importGatunek() {
+        String sqlFilePath = "src/main/resources/com/example/demo/migration/import_gatunek.sql";
+        importSQL(sqlFilePath, "gatunek");
+    }
+
     public static void importKsiazki() {
         String sqlFilePath = "src/main/resources/com/example/demo/migration/import_ksiazki.sql";
         importSQL(sqlFilePath, "ksiazki");
@@ -77,6 +82,11 @@ public class DatabaseMigration {
     public static void importCzytelnicy() {
         String sqlFilePath = "src/main/resources/com/example/demo/migration/import_czytelnicy.sql";
         importSQL(sqlFilePath, "czytelnicy");
+    }
+
+    public static void importWypozyczen() {
+        String sqlFilePath = "src/main/resources/com/example/demo/migration/import_wypozyczenia.sql";
+        importSQL(sqlFilePath, "wypozyczenia");
     }
 
     // Ogólna metoda do importu danych
@@ -110,8 +120,10 @@ public class DatabaseMigration {
     public static void main(String[] args) {
         createDatabase();  // Tworzenie bazy danych
         importAutorzy();   // Importowanie autorów
+        importGatunek();    // Importowanie gatunkow
         importKsiazki();   // Importowanie książek
         importDostawcy();  // Importowanie dostawców
-        importCzytelnicy();  // Importowanie dostawców
+        importCzytelnicy();  // Importowanie czytelnikow
+        importWypozyczen();  // Importowanie wypozyczen
     }
 }

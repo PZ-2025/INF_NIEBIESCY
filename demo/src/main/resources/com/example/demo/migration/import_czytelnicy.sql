@@ -1,6 +1,27 @@
-INSERT IGNORE INTO `czytelnicy` (`id_czytelnika`, `imie`, `nazwisko`, `tel`, `email`, `haslo`, `ulica`, `miasto`)
+INSERT INTO `czytelnicy` (`id_czytelnika`, `imie`, `nazwisko`, `tel`, `email`, `haslo`, `ulica`, `miasto`)
 VALUES
-    (1, 'Konrad', 'Klatka', 432123123, 'konrad@wp.pl', '$2a$10$/qXFug0oVkSWTPDLQqbBBOfCkPmtxNVPP0XFZczNF6zdaCNOQMr3G', 'Dlugie 324', 'Jedlicze'),
-    (2, 'Kamila', 'Biedron', 123123123, 'kamila@wp.pl', '$2a$10$qmLdaLYQ9z/feLeAFwqUD.NV4he7Phql1kJmlDXYqc7MEuxpHpw5m', 'Chrobrego 21', 'Krosno');
-
--- haslo==imie
+(1, 'Ewa', 'Kowalska', 654321987, 'ewa@wp.pl', '$2a$10$K2t9DHSmWhTg4PLJ.mFczO7I4RX2m.2cGx.u2qWTFEHOgGRQvu..6', 'Zielona 5', 'Sanok'),
+(2, 'Marek', 'Zielinski', 112233445, 'marek@wp.pl', '$2a$10$JwHZBLeH6SSjXrQPgL8xQOSLZ5HI3JK4rMM7zEfDGD3UyLeKBPNum', 'Brzozowa 9', 'Przemysl'),
+(3, 'Anna', 'Wojcik', 667788990, 'anna@wp.pl', '$2a$10$oiFTT6KyLJTr.haAiSQoiuED.43tuyrYzNTnG7IH1G5ryCBC/nz7q', 'Sosnowa 12', 'Mielec'),
+(4, 'Piotr', 'Szymanski', 223344556, 'piotr@wp.pl', '$2a$10$212yX/NFs6Qtf85cbj5D7uGeDVQvZYSerWAAsl8jpaQlWjqseu.X.', 'Jasna 42', 'Tarnobrzeg'),
+(5, 'Monika', 'Kwiatkowska', 556677889, 'monika@wp.pl', '$2a$10$l00KzJ.zH6vMp13ujm8dyewndAZ8X9mDpMFfyb.soSWhG64SVVkM.', 'Pilsudskiego 7', 'Debica'),
+(6, 'Jan', 'Kowalczyk', 776655443, 'jan@wp.pl', '$2a$10$9Go5o9xtmm5kuAxrJ0S15upiNeEpf8j0xqa7Kk3YhHTyyqMspOdVO', 'Lesna 13', 'Zamosc'),
+(7, 'Iwona', 'Pawlak', 998877665, 'iwona@wp.pl', '$2a$10$saze/NsjcUCcsmYcLDWmreVs/yud8N39iuQf6ODJ3qdiOR72NQKNq', 'Laskowa 25', 'Lublin'),
+(8, 'Tomasz', 'Kaczmarek', 334455667, 'tomasz@wp.pl', '$2a$10$lDPu2/Q5p1cUkbTzVaWiXu5qkMt0zIOmRgAm1EYjkwK/8ZjWu.sb2', 'Gorzyska 12', 'Kielce'),
+(9, 'Barbara', 'Wozniak', 445566778, 'barbara@wp.pl', '$2a$10$C/oU3kyX7ARQ8BIn3E62HOrxgY/r5F3fAJeWb0KKtVl.U1O3Krl3C', 'Dabrowskiego 8', 'Nowy Sącz'),
+(10, 'Zbigniew', 'Borkowski', 556677889, 'zbigniew@wp.pl', '$2a$10$NYR5wWawovQuiM1YssH7YONz/zmDgH4sIAAnXiZ1niuCd6lJCfGDm', 'Zielona 3', 'Lubin'),
+(11, 'Katarzyna', 'Wojciechowska', 667788990, 'katarzyna@wp.pl', '$2a$10$0/cazuDLJdd/0zWuzqKERu//cgTtvcbm8FNubYBpXgfydQE.tDyH2', 'Olsztynska 16', 'Wroclaw'),
+(12, 'Wojciech', 'Kwiatkowski', 778899112, 'wojciech@wp.pl', '$2a$10$hHPYdsIBfsT.j6Agb5qPhe8.EuZ1dZzd6ClKRTeEpEGWKlnMfmHpq', 'Miejska 45', 'Gorzów Wlkp.'),
+(13, 'Jolanta', 'Mazur', 889900223, 'jolanta@wp.pl', '$2a$10$ij9qcZw5./4WPPMW6HPR4eZ6c0Y3NMAfRoRvRg/xOx5z98mWwfmFq', 'Nowa 29', 'Opole'),
+(14, 'Paweł', 'Czarnecki', 998811334, 'pawel@wp.pl', '$2a$10$7enm2zGBjddCfP9BC2CT2ux4gdYHktt0hUi3977vWnPi9wctIg/VK', 'Mickiewicza 51', 'Katowice'),
+(15, 'Beata', 'Zielinska', 223344556, 'beata@wp.pl', '$2a$10$L/HH3YZ7ePC2h8CIFQdx/u9iCOlva6zxrTctaWGcOW6oGynBe1iqm', 'Wiosny Ludow 19', 'Wloclawek'),
+(16, 'Rafał', 'Kamiński', 667788990, 'rafal@wp.pl', '$2a$10$nFoCTMmvf8wLvZQeFXs7Yewk.y4g6JY2n4BS4u5Ica2T9jETn.yda', 'Szeroka 3', 'Bialystok'),
+(17, 'Małgorzata', 'Michałowska', 334455667, 'malgorzata@wp.pl', '$2a$10$KRFaOUtUv7dQ3tsyMXQ44eAsDLkJlaC2aE69E3/j33xlzwXq1TiQa', 'Polna 8', 'Gdynia'),
+(18, 'Waldemar', 'Kaczmarek', 112233445, 'waldemar@wp.pl', '$2a$10$luxny8U8HICKbNRbV3rOFOFJaRAVLlm/C4k35mtdLbH9Jqvb/D1gi', 'Rynkowska 45', 'Olsztyn'),
+(19, 'Lena', 'Jasińska', 223344556, 'lena@wp.pl', '$2a$10$hvSpl9Axk6R2csLE2ufjH.PchnEFQ0xasIiNGJiBvusEjuRXWkPIC', 'Sosnowa 12', 'Zabrze'),
+(20, 'Piotr', 'Nowakowski', 332211445, 'piotr2@wp.pl', '$2a$10$CAkmkdUD7rvn40FuZPnN7udOWlYio8XoG9XZ/OfyzPOiC7aPz2lV.', 'Jagiellonska 34', 'Gdansk'),
+(21, 'Agnieszka', 'Sikora', 667788990, 'agnieszka@wp.pl', '$2a$10$9.B5zFzOUAjAbVM6Byhi0uB55sjDuJy5eI66dDdvtRG/fSdC.XWMu', 'Kwiatowa 6', 'Bielsko-Biala'),
+(22, 'Grzegorz', 'Jankowski', 998877665, 'grzegorz@wp.pl', '$2a$10$4E4.eyIRv/ahq6IWKHVvOe00ERGzGZqKL/NyRVnoA3vrRm7SxvqWa', 'Wolności 22', 'Lodz'),
+(23, 'Aleksandra', 'Kalinowska', 223344556, 'aleksandra@wp.pl', '$2a$10$t.eSd8NphYF6NPK2quAgn.6KyEUL5LBW.WdSQjudvJ2LcpQ3qcXz.', 'Wysoka 17', 'Szczecin'),
+(24, 'Tadeusz', 'Cieślak', 112233445, 'tadeusz@wp.pl', '$2a$10$SyPT6GSsy.ZBUNXNINmC0O4.6Z0xFk4N2.6txSfHlNO.I5W4L53km', 'Dębowa 20', 'Kraków');
+--imie == haslo

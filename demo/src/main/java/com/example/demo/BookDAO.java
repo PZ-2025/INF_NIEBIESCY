@@ -11,7 +11,11 @@ import java.sql.SQLException;
 public class BookDAO {
     public ObservableList<Book> loadBooksFromDatabase(Connection connection) {
         ObservableList<Book> books = FXCollections.observableArrayList();
-        String query = "SELECT ksiazki.*, autorzy.nazwa FROM ksiazki INNER JOIN autorzy ON ksiazki.id_autora = autorzy.id_autora";
+        String query = "SELECT ksiazki.*, autorzy.nazwa, gatunek.nazwa_gatunku " +
+                "FROM ksiazki " +
+                "INNER JOIN autorzy ON ksiazki.id_autora = autorzy.id_autora " +
+                "INNER JOIN gatunek ON ksiazki.id_gatunku = gatunek.id_gatunku";
+
 
         try (PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
@@ -19,10 +23,11 @@ public class BookDAO {
             while (resultSet.next()) {
                 String autor = resultSet.getString("nazwa");
                 String tytul = resultSet.getString("tytul");
+                String gatunek = resultSet.getString("nazwa_gatunku");
                 String wydawnictwo = resultSet.getString("wydawnictwo");
                 String ilosc = resultSet.getString("ilosc");
 
-                books.add(new Book(autor, tytul, wydawnictwo, ilosc));
+                books.add(new Book(autor, tytul,gatunek, wydawnictwo, ilosc));
             }
 
         } catch (SQLException e) {
@@ -39,11 +44,13 @@ public class BookDAO {
             ksiazki.id_ksiazki, 
             autorzy.nazwa, 
             ksiazki.tytul, 
+            gatunki.nazwa_gatunku,
             ksiazki.wydawnictwo, 
             ksiazki.data_dodania, 
             ksiazki.ISBN
         FROM ksiazki 
         INNER JOIN autorzy ON ksiazki.id_autora = autorzy.id_autora
+        gatunki ON ksiazki.id_gatunku = gatunki.id_gatunku
         WHERE ksiazki.id_ksiazki = ?
     """;
 

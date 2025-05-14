@@ -28,6 +28,7 @@ public class GuestController {
     @FXML private TableView<Book> booksTable;
     @FXML private TableColumn<Book, String> autorColumn;
     @FXML private TableColumn<Book, String> tytulColumn;
+    @FXML private TableColumn<Book, String> gatunekColumn;
     @FXML private TableColumn<Book, String> wydawnictwoColumn;
     @FXML private TableColumn<Book, String> iloscColumn;
 
@@ -72,6 +73,7 @@ public class GuestController {
         // Ustawienie fabryk dla komórek tabeli
         autorColumn.setCellValueFactory(new PropertyValueFactory<>("autor"));
         tytulColumn.setCellValueFactory(new PropertyValueFactory<>("tytul"));
+        gatunekColumn.setCellValueFactory(new PropertyValueFactory<>("gatunek"));
         wydawnictwoColumn.setCellValueFactory(new PropertyValueFactory<>("wydawnictwo"));
         iloscColumn.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
 
@@ -210,7 +212,12 @@ public class GuestController {
         DatabaseConnection connection = new DatabaseConnection();
         Connection conn = connection.getConnection();
 
-        String query = "SELECT ksiazki.*, autorzy.nazwa FROM ksiazki INNER JOIN autorzy ON ksiazki.id_autora = autorzy.id_autora WHERE autorzy.nazwa = ?";
+        String query = "SELECT ksiazki.*, autorzy.nazwa, gatunek.nazwa_gatunku " +
+                        "FROM ksiazki " +
+                        "INNER JOIN autorzy ON ksiazki.id_autora = autorzy.id_autora " +
+                        "INNER JOIN gatunek ON ksiazki.id_gatunku = gatunek.id_gatunku " +
+                        "WHERE autorzy.nazwa = ?";
+
 
         ObservableList<Book> books = FXCollections.observableArrayList();
 
@@ -223,10 +230,11 @@ public class GuestController {
             while (resultSet.next()) {
                 String autor = resultSet.getString("nazwa"); // Złączony autor
                 String tytul = resultSet.getString("tytul");
+                String gatunek = resultSet.getString("nazwa_gatunku");
                 String wydawnictwo = resultSet.getString("wydawnictwo");
                 String ilosc = resultSet.getString("ilosc");
 
-                books.add(new Book(autor, tytul, wydawnictwo, ilosc));
+                books.add(new Book(autor, tytul,gatunek , wydawnictwo, ilosc));
             }
 
             // Ustawienie książek w tabeli
