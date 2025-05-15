@@ -60,21 +60,6 @@ CREATE TABLE IF NOT EXISTS `ksiazki` (
     UNIQUE KEY `unique_tytul` (`tytul`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Tabela 'ksiazki_wypozyczone'
-CREATE TABLE IF NOT EXISTS `ksiazki_wypozyczone` (
-    `id_ksiazki_wypozyczonej` int(11) NOT NULL AUTO_INCREMENT,
-    `id_ksiazki` int(11) NOT NULL,
-    `ilosc_wypozyczonych` int(11),
-    `ilosc_calkowita` int(11) NOT NULL,
-    `id_wypozyczenia` int(11) NOT NULL,
-    PRIMARY KEY (`id_ksiazki_wypozyczonej`),
-    KEY `fk_id_wypozyczenia` (`id_wypozyczenia`),
-    FOREIGN KEY (`id_wypozyczenia`) REFERENCES `wypozyczenia` (`id_wypozyczenia`),
-    KEY `fk_id_ksiazki` (`id_ksiazki`),
-    FOREIGN KEY (`id_ksiazki`) REFERENCES `ksiazki` (`id_ksiazki`),
-    UNIQUE KEY `unique_tytul` (`id_ksiazki`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 -- Tabela 'pracownicy'
 CREATE TABLE IF NOT EXISTS `pracownicy` (
     `id_pracownika` int(11) NOT NULL AUTO_INCREMENT,
@@ -93,13 +78,25 @@ CREATE TABLE IF NOT EXISTS `wypozyczenia` (
     `id_wypozyczenia` int(11) NOT NULL AUTO_INCREMENT,
     `id_ksiazki` int(11) NOT NULL,
     `id_czytelnika` int(11) NOT NULL,
-    `data_wypozyczenia` datetime NOT NULL DEFAULT current_timestamp(),
-    `data_oddania` datetime DEFAULT NULL,
+    `data_wypozyczenia` date NOT NULL DEFAULT current_date(),
+    `data_oddania` date DEFAULT NULL,
     PRIMARY KEY (`id_wypozyczenia`),
     KEY `fk_id_czytelnika` (`id_czytelnika`),
-    KEY `fk_id_ksiazki` (`id_ksiazki`),
     FOREIGN KEY (`id_czytelnika`) REFERENCES `czytelnicy` (`id_czytelnika`),
+    KEY `fk_id_ksiazki` (`id_ksiazki`),
     FOREIGN KEY (`id_ksiazki`) REFERENCES `ksiazki` (`id_ksiazki`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Tabela 'ksiazki_wypozyczone'
+CREATE TABLE IF NOT EXISTS `ksiazki_wypozyczone` (
+    `id_ksiazki_wypozyczonej` int(11) NOT NULL AUTO_INCREMENT,
+    `id_ksiazki` int(11) NOT NULL,
+    `ilosc_wypozyczonych` int(11),
+    `ilosc_calkowita` int(11) NOT NULL,
+    PRIMARY KEY (`id_ksiazki_wypozyczonej`),
+    KEY `fk_id_ksiazki` (`id_ksiazki`),
+    FOREIGN KEY (`id_ksiazki`) REFERENCES `ksiazki` (`id_ksiazki`),
+    UNIQUE KEY `unique_tytul` (`id_ksiazki`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabela 'zamowienia'

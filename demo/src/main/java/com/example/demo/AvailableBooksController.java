@@ -39,7 +39,7 @@ public class AvailableBooksController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
-            AvailableBooksController controller = fxmlLoader.getController();
+            LoanHistoryController controller = fxmlLoader.getController();
             controller.setAktualnyCzytelnik(aktualnyCzytelnik);
 
             Stage stage = (Stage) historyButton.getScene().getWindow();

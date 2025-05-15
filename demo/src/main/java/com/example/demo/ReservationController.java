@@ -1,21 +1,15 @@
 package com.example.demo;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.*;
 
@@ -84,12 +78,29 @@ public class ReservationController {
         String getIdSql = "SELECT id_ksiazki FROM ksiazki WHERE tytul = ?";
         String insertSql = """
         INSERT INTO wypozyczenia (id_ksiazki, id_czytelnika, data_wypozyczenia, data_oddania)
-        VALUES (?, ?, NOW(), NULL)
-    """;
+        VALUES (?, ?, CURRENT_DATE(), NULL)
+        """;
 
+        String getIloscSql = "SELECT ilosc FROM ksiazki WHERE tytul = ?";
+        String getWypozyczoneSql = "SELECT ilosc_wypozyczonych FROM ksiazki_wypozyczone WHERE id_ksiazki = ?";
+        String insertWypozyczoneSql = """
+        INSERT INTO ksiazki_wypozyczone (id_ksiazki, ilosc_wypozyczonych, ilosc_calkowita)
+        VALUES (?, ?, ?)
+        """;
+        String updateWypozyczoneSql = """
+        UPDATE ksiazki_wypozyczone
+        SET ilosc_wypozyczonych = ?
+        WHERE id_ksiazki = ?
+        """;
         try (
+                // Wykonanie zapytan
                 PreparedStatement getIdStmt = conn.prepareStatement(getIdSql);
-                PreparedStatement insertStmt = conn.prepareStatement(insertSql)
+                PreparedStatement insertWypozyczenieStmt = conn.prepareStatement(insertSql,  Statement.RETURN_GENERATED_KEYS);
+
+                PreparedStatement getIloscStmt = conn.prepareStatement(getIloscSql);
+                PreparedStatement getWypozyczoneKsiazkiStmt = conn.prepareStatement(getWypozyczoneSql);
+                PreparedStatement insertWypozyczoneKsiazkiStmt = conn.prepareStatement(insertWypozyczoneSql);
+                PreparedStatement updateWypozyczoneKsiazkiStmt = conn.prepareStatement(updateWypozyczoneSql)
         ) {
             for (WypozyczNOW ksiazka : tableBooks.getItems()) {
                 if (ksiazka.isSelected()) {
@@ -101,9 +112,47 @@ public class ReservationController {
                     if (rs.next()) {
                         int idKsiazki = rs.getInt("id_ksiazki");
 
-                        insertStmt.setInt(1, idKsiazki);
-                        insertStmt.setInt(2, aktualnyCzytelnik.getId());
-                        insertStmt.executeUpdate();
+                        // Pobierz ilość z tabeli ksiazki
+                        getIloscStmt.setString(1, tytul);
+                        ResultSet rsIlosc = getIloscStmt.executeQuery();
+                        int iloscCalkowita = rsIlosc.next() ? rsIlosc.getInt("ilosc") : 0;
+
+                        // Sprawdź czy książka już wypożyczona
+                        getWypozyczoneKsiazkiStmt.setInt(1, idKsiazki);
+                        ResultSet rsWyp = getWypozyczoneKsiazkiStmt.executeQuery();
+
+                        int iloscWypozyczonych = 0;
+                        boolean istniejeRekordWKsiazkiWypozyczone = false;
+                        if (rsWyp.next()) {
+                            iloscWypozyczonych = rsWyp.getInt("ilosc_wypozyczonych");
+                            istniejeRekordWKsiazkiWypozyczone = true;
+                        }
+
+                        // SPRAWDZENIE LIMITU
+                        if (iloscWypozyczonych >= iloscCalkowita) {
+                            System.out.printf("Brak dostępnych egzemplarzy: [id_ksiazki=%d, ilosc=%d, wypozyczonych=%d]%n",
+                                    idKsiazki, iloscCalkowita, iloscWypozyczonych);
+                            continue; // Pomija tę książkę
+                        }
+
+                        // Wstaw wypożyczenie
+                        insertWypozyczenieStmt.setInt(1, idKsiazki);
+                        insertWypozyczenieStmt.setInt(2, aktualnyCzytelnik.getId());
+                        insertWypozyczenieStmt.executeUpdate();
+
+                        if (istniejeRekordWKsiazkiWypozyczone) {
+                            // UPDATE
+                            iloscWypozyczonych += 1;
+                            updateWypozyczoneKsiazkiStmt.setInt(1, iloscWypozyczonych);
+                            updateWypozyczoneKsiazkiStmt.setInt(2, idKsiazki);
+                            updateWypozyczoneKsiazkiStmt.executeUpdate();
+                        } else {
+                            // INSERT
+                            insertWypozyczoneKsiazkiStmt.setInt(1, idKsiazki);
+                            insertWypozyczoneKsiazkiStmt.setInt(2, 1); // pierwsze wypożyczenie
+                            insertWypozyczoneKsiazkiStmt.setInt(3, iloscCalkowita);
+                            insertWypozyczoneKsiazkiStmt.executeUpdate();
+                        }
 
                         selectedBooks.append(tytul).append(", ");
                         anySelected = true;
@@ -112,13 +161,11 @@ public class ReservationController {
                     }
                 }
             }
-
             if (anySelected) {
                 System.out.println(selectedBooks.substring(0, selectedBooks.length() - 2));
             } else {
                 System.out.println("Brak zaznaczonych książek do rezerwacji.");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -129,7 +176,7 @@ public class ReservationController {
         ObservableList<WypozyczNOW> lista = FXCollections.observableArrayList();
 
         String sql = """
-    SELECT k.tytul, a.nazwa, g.nazwa_gatunku, 
+    SELECT k.tytul, a.nazwa, g.nazwa_gatunku,
            (k.ilosc - COALESCE(kw.ilosc_wypozyczonych, 0)) AS dostepne
     FROM ksiazki k
     JOIN autorzy a ON k.id_autora = a.id_autora
@@ -165,8 +212,8 @@ public class ReservationController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
-//            AvailableBooksController controller = fxmlLoader.getController();
-//            controller.setAktualnyCzytelnik(aktualnyCzytelnik);
+            LoanHistoryController controller = fxmlLoader.getController();
+            controller.setAktualnyCzytelnik(aktualnyCzytelnik);
 
             Stage stage = (Stage) historyButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
@@ -186,8 +233,8 @@ public class ReservationController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
-//            AvailableBooksController controller = fxmlLoader.getController();
-//            controller.setAktualnyCzytelnik(aktualnyCzytelnik);
+            AvailableBooksController controller = fxmlLoader.getController();
+            controller.setAktualnyCzytelnik(aktualnyCzytelnik);
 
             Stage stage = (Stage) booksButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
@@ -207,7 +254,7 @@ public class ReservationController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
-            AvailableBooksController controller = fxmlLoader.getController();
+            ReservationController controller = fxmlLoader.getController();
             controller.setAktualnyCzytelnik(aktualnyCzytelnik);
 
             Stage stage = (Stage) reservationButton.getScene().getWindow();

@@ -40,13 +40,13 @@ public class RaportPopytuPdf {
             table.addCell(new Cell().add(new Paragraph("Data oddania")).setMinWidth(60f));
 
             // Dane
-            for (Wypozyczenia w : wypozyczenia) {
-                table.addCell(new Cell().add(new Paragraph(w.getId_wypozyczenia())).setMinWidth(60f));
-                table.addCell(new Cell().add(new Paragraph(w.getId_ksiazki())).setMinWidth(60f));
-                table.addCell(new Cell().add(new Paragraph(w.getId_czytelnika())).setMinWidth(60f));
-                table.addCell(new Cell().add(new Paragraph(w.getData_wypozyczenia())).setMinWidth(60f));
-                table.addCell(new Cell().add(new Paragraph(w.getData_oddania())).setMinWidth(60f));
-            }
+//            for (Wypozyczenia w : wypozyczenia) {
+//                table.addCell(new Cell().add(new Paragraph(w.getId_wypozyczenia())).setMinWidth(60f));
+//                table.addCell(new Cell().add(new Paragraph(w.getId_ksiazki())).setMinWidth(60f));
+//                table.addCell(new Cell().add(new Paragraph(w.getId_czytelnika())).setMinWidth(60f));
+//                table.addCell(new Cell().add(new Paragraph(w.getData_wypozyczenia())).setMinWidth(60f));
+//                table.addCell(new Cell().add(new Paragraph(w.getData_oddania())).setMinWidth(60f));
+//            }
 
             document.add(table);
             document.close();
