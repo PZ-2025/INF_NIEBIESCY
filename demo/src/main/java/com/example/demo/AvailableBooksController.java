@@ -60,8 +60,8 @@ public class AvailableBooksController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
-//            AvailableBooksController controller = fxmlLoader.getController();
-//            controller.setAktualnyCzytelnik(aktualnyCzytelnik);
+            AvailableBooksController controller = fxmlLoader.getController();
+            controller.setAktualnyCzytelnik(aktualnyCzytelnik);
 
             Stage stage = (Stage) booksButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
