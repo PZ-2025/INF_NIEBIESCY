@@ -129,6 +129,11 @@ public class DatabaseMigration {
         importSQLIfEmpty(sqlFilePath, "wypozyczenia");
     }
 
+    public static void importPracownicy() {
+        String sqlFilePath = "src/main/resources/com/example/demo/migration/import_pracownicy.sql";
+        importSQLIfEmpty(sqlFilePath, "pracownicy");
+    }
+
     // Ogólna metoda do importu danych
     private static void importSQL(String sqlFilePath, String dataType) {
         try (Connection conn = DriverManager.getConnection(URL + "bibliotekadb", USER, PASSWORD);
@@ -165,5 +170,6 @@ public class DatabaseMigration {
         importDostawcy();  // Importowanie dostawców
         importCzytelnicy();  // Importowanie czytelnikow
         importWypozyczen();  // Importowanie wypozyczen
+        importPracownicy(); // Importowanie pracowników
     }
 }

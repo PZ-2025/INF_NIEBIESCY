@@ -18,6 +18,11 @@ public class LibrarianReaderController {
     private Label booksButton;
     @FXML
     private Label logoutButton;
+    private Pracownik aktualnyPracownik;
+
+    public void setAktualnyPracownik(Pracownik pracownik) {
+        this.aktualnyPracownik = pracownik;
+    }
 
     public void initialize() {
         reservationsButton.setOnMouseClicked(this::otworzRezerwacje);
@@ -34,6 +39,8 @@ public class LibrarianReaderController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            LibrarianReservationsController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) reservationsButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
@@ -52,6 +59,8 @@ public class LibrarianReaderController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            LibrarianLoanController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) loansButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
@@ -70,6 +79,8 @@ public class LibrarianReaderController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            LibrarianBooksController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) booksButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);

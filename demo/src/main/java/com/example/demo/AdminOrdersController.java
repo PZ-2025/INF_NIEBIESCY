@@ -25,6 +25,11 @@ public class AdminOrdersController {
     private Button historyButton;
     @FXML
     private Button orderFormButton;
+    private Pracownik aktualnyPracownik;
+
+    public void setAktualnyPracownik(Pracownik pracownik) {
+        this.aktualnyPracownik = pracownik;
+    }
 
     public void initialize() {
         ordersButton.setOnMouseClicked(this::otworzZamowienia);
@@ -43,6 +48,8 @@ public class AdminOrdersController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            AdminOrderHistoryController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) historyButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
@@ -61,6 +68,8 @@ public class AdminOrdersController {
                 return;
             }
             AnchorPane root = fxmlLoader.load();
+            AdminOrderFormController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) orderFormButton.getScene().getWindow();
             Scene scene = new Scene(root, 700, 300);
             stage.setScene(scene);
@@ -79,6 +88,8 @@ public class AdminOrdersController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            AdminOrdersController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) ordersButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
@@ -97,6 +108,8 @@ public class AdminOrdersController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            AdminUsersController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) usersButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
@@ -115,6 +128,8 @@ public class AdminOrdersController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            AdminBooksController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) booksButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);

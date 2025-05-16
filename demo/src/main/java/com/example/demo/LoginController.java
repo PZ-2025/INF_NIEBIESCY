@@ -82,8 +82,47 @@ public class LoginController {
                 e.printStackTrace();
                 System.out.println("Błąd wczytywania pliku FXML");
             }
+            return;
         } else {
-            komunikatLabel.setText("Niepoprawny email lub hasło");
+            // Próba logowania pracownika
+            Pracownik pracownik = authenticateEmployee(username, password);
+
+            if (pracownik != null) {
+                komunikatLabel.setTextFill(Color.GREEN);
+                komunikatLabel.setText("Zostałeś zalogowany jako pracownik: " + pracownik.getImie() + " " + pracownik.getNazwisko() + " (" + pracownik.getRola() + ")");
+
+                try {
+                    String rola = pracownik.getRola();
+                    if("admin".equalsIgnoreCase(rola)){
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("admin-zamowienia.fxml"));
+                        BorderPane root = fxmlLoader.load();
+                        AdminOrdersController controller = fxmlLoader.getController();
+                        controller.setAktualnyPracownik(pracownik);
+
+                        Stage stage = (Stage) loginButton.getScene().getWindow();
+                        Scene scene = new Scene(root, 1000, 600);
+                        stage.setScene(scene);
+                        stage.show();
+                    } else {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("bibliotekarz-rezerwacje-view.fxml"));
+                        BorderPane root = fxmlLoader.load();
+                        LibrarianReservationsController controller = fxmlLoader.getController();
+                        controller.setAktualnyPracownik(pracownik);
+
+                        Stage stage = (Stage) loginButton.getScene().getWindow();
+                        Scene scene = new Scene(root, 1000, 600);
+                        stage.setScene(scene);
+                        stage.show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Błąd wczytywania pliku FXML dla pracownika");
+                }
+                return;
+            } else {
+                // Jeśli nikt nie pasuje
+                komunikatLabel.setText("Niepoprawny email lub hasło");
+            }
         }
     }
 
@@ -104,9 +143,35 @@ public class LoginController {
                     int id = resultSet.getInt("id_czytelnika");
                     String imie = resultSet.getString("imie");
                     String nazwisko = resultSet.getString("nazwisko");
-
                     // Tworzymy obiekt Czytelnik
                     return new Czytelnik(id, login, storedHashedPassword, imie, nazwisko);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Pracownik authenticateEmployee(String login, String haslo) {
+        System.out.println("Wywołano authenticateEmployee dla: " + login);
+        String query = "SELECT * FROM pracownicy WHERE email = ?";
+
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, login);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String storedHashedPassword = resultSet.getString("haslo");
+                if (BCrypt.checkpw(haslo, storedHashedPassword)) {
+                    int id = resultSet.getInt("id_pracownika");
+                    String imie = resultSet.getString("imie");
+                    String nazwisko = resultSet.getString("nazwisko");
+                    String rola = resultSet.getString("rola");
+
+                    return new Pracownik(id, login, storedHashedPassword, imie, nazwisko, rola);
                 }
             }
         } catch (Exception e) {

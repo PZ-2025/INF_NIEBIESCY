@@ -14,6 +14,12 @@ public class AdminOrderFormController {
     private Button orderButton;
     @FXML
     private Button returnButton;
+    private Pracownik aktualnyPracownik;
+
+    public void setAktualnyPracownik(Pracownik pracownik) {
+        this.aktualnyPracownik = pracownik;
+    }
+
     public void initialize(){
         orderButton.setOnMouseClicked(this::zamow);
         returnButton.setOnMouseClicked(this::wroc);
@@ -27,6 +33,8 @@ public class AdminOrderFormController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            AdminOrdersController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) orderButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
@@ -45,6 +53,8 @@ public class AdminOrderFormController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            AdminOrdersController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) returnButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);

@@ -66,9 +66,9 @@ CREATE TABLE IF NOT EXISTS `pracownicy` (
     `imie` varchar(20) NOT NULL,
     `nazwisko` varchar(20) NOT NULL,
     `tel` varchar(15) NOT NULL,
-    `email` varchar(20) NOT NULL,
-    `haslo` varchar(20) NOT NULL,
-    `rola` varchar(10) NOT NULL,
+    `email` varchar(30) NOT NULL,
+    `haslo` varchar(255) NOT NULL,
+    `rola` varchar(20) NOT NULL,
     PRIMARY KEY (`id_pracownika`),
     UNIQUE KEY `unique_email` (`email`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

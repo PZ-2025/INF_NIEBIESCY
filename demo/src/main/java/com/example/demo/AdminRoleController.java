@@ -12,6 +12,11 @@ import java.io.IOException;
 public class AdminRoleController {
     @FXML
     private Button saveButton;
+    private Pracownik aktualnyPracownik;
+
+    public void setAktualnyPracownik(Pracownik pracownik) {
+        this.aktualnyPracownik = pracownik;
+    }
 
     public void initialize() {
         saveButton.setOnMouseClicked(this::zapisz);
@@ -25,6 +30,8 @@ public class AdminRoleController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            AdminUsersController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) saveButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);

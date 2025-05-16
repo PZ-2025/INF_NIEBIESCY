@@ -21,6 +21,11 @@ public class AdminOrderHistoryController {
     private Label logoutButton;
     @FXML
     private Button returnButton;
+    private Pracownik aktualnyPracownik;
+
+    public void setAktualnyPracownik(Pracownik pracownik) {
+        this.aktualnyPracownik = pracownik;
+    }
 
     public void initialize() {
         ordersButton.setOnMouseClicked(this::otworzZamowienia);
@@ -38,6 +43,8 @@ public class AdminOrderHistoryController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            AdminOrdersController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) ordersButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
@@ -56,6 +63,8 @@ public class AdminOrderHistoryController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            AdminUsersController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) usersButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
@@ -74,6 +83,8 @@ public class AdminOrderHistoryController {
                 return;
             }
             BorderPane root = fxmlLoader.load();
+            AdminBooksController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) booksButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
