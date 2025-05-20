@@ -1,16 +1,38 @@
 package com.example.demo;
 
+import com.itextpdf.forms.form.element.Radio;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LibrarianReservationsController {
+    @FXML private TableView<Rezerwacje> tableView;
+
+    @FXML private TableColumn<Rezerwacje, String> Imie;
+    @FXML private TableColumn<Rezerwacje, String> Nazwisko;
+    @FXML private TableColumn<Rezerwacje, String> Email;
+    @FXML private TableColumn<Rezerwacje, String> Tytul;
+    @FXML private TableColumn<Rezerwacje, String> Ilosc;
+    @FXML private TableColumn<Rezerwacje, String> DataRezerwacji;
+    @FXML private TableColumn<Rezerwacje, String> PlanowanaData;
+    @FXML private TableColumn<Rezerwacje, Boolean> Status;
+    @FXML
+    private TableColumn<Rezerwacje, Boolean> Radio;
+
+
     @FXML
     private Label reservationsButton;
     @FXML
@@ -35,7 +57,118 @@ public class LibrarianReservationsController {
         loansButton.setOnMouseClicked(this::otworzWypozyczenia);
         booksButton.setOnMouseClicked(this::otworzKsiegozbior);
         logoutButton.setOnMouseClicked(this::wyloguj);
+
+        Imie.setCellValueFactory(new PropertyValueFactory<>("imie"));
+        Nazwisko.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
+        Email.setCellValueFactory(new PropertyValueFactory<>("email"));
+        Tytul.setCellValueFactory(new PropertyValueFactory<>("tytul"));
+        Ilosc.setCellValueFactory(new PropertyValueFactory<>("wyp"));
+        DataRezerwacji.setCellValueFactory(new PropertyValueFactory<>("data_zamowienia"));
+        PlanowanaData.setCellValueFactory(new PropertyValueFactory<>("planowana_data"));
+        Status.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        Radio.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
+
+        Radio.setCellFactory(tc -> new CheckBoxTableCell<>(index ->
+                tableView.getItems().get(index).selectedProperty()
+        ));
+
+        Status.setCellFactory(column -> new TableCell<Rezerwacje, Boolean>() {
+            @Override
+            protected void updateItem(Boolean status, boolean empty) {
+                super.updateItem(status, empty);
+                if (empty || status == null) {
+                    setText(null);
+                } else {
+                    setText(status ? "Zaakceptowane" : "Oczekujące");
+                }
+            }
+        });
+
+        loadData();
+
+        tableView.setEditable(true);
+        Radio.setEditable(true);
+
+        acceptButton.setOnAction(event -> acceptSelectedReservations());
+
     }
+
+    private void loadData() {
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection conn = connection.getConnection();
+
+        ObservableList<Rezerwacje> dane = getAllRezerwacje(conn);
+        tableView.setItems(dane);
+    }
+
+    public ObservableList<Rezerwacje> getAllRezerwacje(Connection conn) {
+        ObservableList<Rezerwacje> lista = FXCollections.observableArrayList();
+
+        String sql = """
+    
+    SELECT r.id_rezerwacji ,c.imie, c.nazwisko, c.email, k.tytul, kw.ilosc_wypozyczonych, r.data_zamowienia, r.planowana_data, r.status
+    FROM rezerwacje r
+    JOIN czytelnicy c ON r.id_czytelnika = c.id_czytelnika
+    JOIN ksiazki k ON r.id_ksiazki = k.id_ksiazki
+    JOIN ksiazki_wypozyczone kw ON r.id_ksiazki = kw.id_ksiazki;
+    
+    """;
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id_rezerwacji");
+                String imie = rs.getString("imie");
+                String nazwisko = rs.getString("nazwisko");
+                String email = rs.getString("email");
+                String tytul = rs.getString("tytul");
+                String ilosc_wyp = rs.getString("ilosc_wypozyczonych");
+                String data_zamowienia = rs.getString("data_zamowienia");
+                String planowana_data = rs.getString("planowana_data");
+                Boolean status = rs.getBoolean("status");
+
+                lista.add(new Rezerwacje(id,imie,nazwisko, email, tytul, ilosc_wyp,data_zamowienia, planowana_data, status));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Błąd SQL: " + e.getMessage());
+        }
+
+        return lista;
+    }
+
+    private void acceptSelectedReservations() {
+        DatabaseConnection connection = new DatabaseConnection();
+        try (Connection conn = connection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            String updateSql = "UPDATE rezerwacje SET status = true WHERE id_rezerwacji = ?";
+
+            try (PreparedStatement ps = conn.prepareStatement(updateSql)) {
+                for (Rezerwacje r : tableView.getItems()) {
+                    if (r.isSelected() && !r.isStatus()) {
+                        ps.setInt(1, r.getId());
+                        ps.addBatch();
+
+                        r.statusProperty().set(true);
+                        r.setSelected(false);
+                    }
+                }
+
+                ps.executeBatch();
+            }
+
+            conn.commit();
+
+            tableView.refresh(); // wymuś odświeżenie widoku
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void otworzRezerwacje(javafx.scene.input.MouseEvent mouseEvent) {
         try {

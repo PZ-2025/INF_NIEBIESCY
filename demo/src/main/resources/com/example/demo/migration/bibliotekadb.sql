@@ -114,3 +114,18 @@ CREATE TABLE IF NOT EXISTS `zamowienia` (
     FOREIGN KEY (`id_dostawcy`) REFERENCES `dostawcy` (`id_dostawcy`),
     FOREIGN KEY (`id_ksiazki`) REFERENCES `ksiazki` (`id_ksiazki`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Tabela 'rezerwacje'
+CREATE TABLE IF NOT EXISTS `rezerwacje` (
+    `id_rezerwacji` int(11) NOT NULL,
+    `id_czytelnika` int(11) NOT NULL,
+    `id_ksiazki` int(11) NOT NULL,
+    `data_zamowienia` date NOT NULL DEFAULT current_timestamp(),
+    `planowana_data` date NOT NULL,
+    `status` tinyint(1) DEFAULT NULL,
+    PRIMARY KEY (`id_rezerwacji`),
+    KEY `fk_id_czytelnika` (`id_czytelnika`),
+    KEY `fk_id_ksiazki` (`id_ksiazki`),
+    FOREIGN KEY (`id_czytelnika`) REFERENCES `czytelnicy` (`id_czytelnika`),
+    FOREIGN KEY (`id_ksiazki`) REFERENCES `ksiazki` (`id_ksiazki`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

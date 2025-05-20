@@ -18,6 +18,7 @@ module com.example.demo {
     requires kernel;
     requires layout;
     requires io;
+    requires forms;
 
 
     opens com.example.demo to javafx.fxml;

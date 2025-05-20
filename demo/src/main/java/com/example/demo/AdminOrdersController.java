@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class AdminOrdersController {
     @FXML
@@ -39,6 +45,7 @@ public class AdminOrdersController {
         historyButton.setOnMouseClicked(this::otworzHistorie);
         orderFormButton.setOnMouseClicked(this::zamow);
     }
+
 
     public void otworzHistorie(javafx.scene.input.MouseEvent mouseEvent) {
         try {
