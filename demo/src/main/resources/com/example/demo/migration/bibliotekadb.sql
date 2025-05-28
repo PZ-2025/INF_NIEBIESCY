@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `zamowienia` (
 
 -- Tabela 'rezerwacje'
 CREATE TABLE IF NOT EXISTS `rezerwacje` (
-    `id_rezerwacji` int(11) NOT NULL,
+    `id_rezerwacji` int(11) NOT NULL AUTO_INCREMENT,
     `id_czytelnika` int(11) NOT NULL,
     `id_ksiazki` int(11) NOT NULL,
     `data_zamowienia` date NOT NULL DEFAULT current_timestamp(),

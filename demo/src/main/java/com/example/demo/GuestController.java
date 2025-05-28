@@ -290,7 +290,7 @@ public class GuestController {
             }
             BorderPane root = fxmlLoader.load();
             Stage stage = (Stage) registerButton.getScene().getWindow();
-            Scene scene = new Scene(root, 600, 400);
+            Scene scene = new Scene(root, 600, 450);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
