@@ -71,12 +71,12 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <TableView layoutX="19.0" layoutY="5.0" prefHeight="378.0" prefWidth="653.0">
+                  <TableView fx:id="ordersTable" layoutX="19.0" layoutY="5.0" prefHeight="378.0" prefWidth="653.0">
                      <columns>
-                        <TableColumn prefWidth="42.399961948394775" text="ID" />
-                        <TableColumn prefWidth="225.0" text="Tytuł" />
-                        <TableColumn prefWidth="266.0" text="Autor" />
-                        <TableColumn prefWidth="117.0" text="Ilość" />
+                        <TableColumn fx:id="idColumn" prefWidth="42.399961948394775" text="ID" />
+                        <TableColumn fx:id="tytulColumn" prefWidth="225.0" text="Tytuł" />
+                        <TableColumn fx:id="autorColumn" prefWidth="266.0" text="Autor" />
+                        <TableColumn fx:id="iloscColumn" prefWidth="117.0" text="Ilość" />
                      </columns>
                   </TableView>
                   <Button fx:id="historyButton" layoutX="99.0" layoutY="396.0" mnemonicParsing="false" text="Historia zamówień">

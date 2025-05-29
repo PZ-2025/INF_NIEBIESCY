@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,15 +9,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class AdminOrdersController {
     @FXML
@@ -32,6 +32,18 @@ public class AdminOrdersController {
     @FXML
     private Button orderFormButton;
     private Pracownik aktualnyPracownik;
+    @FXML
+    private TableView<OrderBook> ordersTable;
+    @FXML
+    private TableColumn<OrderBook, String> idColumn;
+    @FXML
+    private TableColumn<OrderBook, String> tytulColumn;
+    @FXML
+    private TableColumn<OrderBook, String> autorColumn;
+    @FXML
+    private TableColumn<OrderBook, String> iloscColumn;
+
+    private ObservableList<OrderBook> orderList = FXCollections.observableArrayList();
 
     public void setAktualnyPracownik(Pracownik pracownik) {
         this.aktualnyPracownik = pracownik;
@@ -44,8 +56,43 @@ public class AdminOrdersController {
         logoutButton.setOnMouseClicked(this::wyloguj);
         historyButton.setOnMouseClicked(this::otworzHistorie);
         orderFormButton.setOnMouseClicked(this::zamow);
+        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+        tytulColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTytul()));
+        autorColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAutor()));
+        iloscColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIlosc()));
+
+        loadOrderBooks();
     }
 
+    private void loadOrderBooks() {
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+
+        // Wyświetlanie książek, których ilość nie przekracza 2 egzemplarzy
+        String query = "SELECT k.id_ksiazki, k.tytul, a.nazwa AS autor, k.ilosc " +
+                "FROM ksiazki k " +
+                "JOIN autorzy a ON k.id_autora = a.id_autora " +
+                "WHERE k.ilosc <= 2";
+
+        try {
+            Statement statement = connectDB.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                String id = resultSet.getString("id_ksiazki");
+                String tytul = resultSet.getString("tytul");
+                String autor = resultSet.getString("autor");
+                String ilosc = resultSet.getString("ilosc");
+
+                orderList.add(new OrderBook(id, tytul, autor, ilosc));
+            }
+
+            ordersTable.setItems(orderList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void otworzHistorie(javafx.scene.input.MouseEvent mouseEvent) {
         try {
