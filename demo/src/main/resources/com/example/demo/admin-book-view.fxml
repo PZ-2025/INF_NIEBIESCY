@@ -166,17 +166,17 @@
                         </TextField>
                      </children>
                   </GridPane>
-                  <Button layoutX="50.0" layoutY="187.0" mnemonicParsing="false" text="Dodaj">
+                  <Button fx:id="addButton" layoutX="50.0" layoutY="187.0" mnemonicParsing="false" text="Dodaj">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button layoutX="112.0" layoutY="187.0" mnemonicParsing="false" text="Edytuj">
+                  <Button fx:id="editButton" layoutX="112.0" layoutY="187.0" mnemonicParsing="false" text="Edytuj">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button layoutX="181.0" layoutY="187.0" mnemonicParsing="false" text="Usuń">
+                  <Button fx:id="deleteButton" layoutX="181.0" layoutY="187.0" mnemonicParsing="false" text="Usuń">
                      <font>
                         <Font size="14.0" />
                      </font>

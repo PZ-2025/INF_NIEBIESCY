@@ -48,7 +48,6 @@ public class AdminUsersController {
         usersButton.setOnMouseClicked(this::otworzUzytkownikow);
         booksButton.setOnMouseClicked(this::otworzKsiegozbior);
         logoutButton.setOnMouseClicked(this::wyloguj);
-        //roleButton.setOnMouseClicked(this::otworzRole);
         imieColumn.setCellValueFactory(new PropertyValueFactory<>("imie"));
         nazwiskoColumn.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -77,28 +76,6 @@ public class AdminUsersController {
             loadUsers();
         }
     }
-
-    /*
-    private void otworzRole(javafx.scene.input.MouseEvent mouseEvent) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("admin-role-view.fxml"));
-            if (fxmlLoader.getLocation() == null) {
-                System.out.println("Błąd: Nie znaleziono pliku admin-role-view.fxml");
-                return;
-            }
-            AnchorPane root = fxmlLoader.load();
-            AdminRoleController controller = fxmlLoader.getController();
-            controller.setAktualnyPracownik(aktualnyPracownik);
-            Stage stage = (Stage) roleButton.getScene().getWindow();
-            Scene scene = new Scene(root, 400, 280);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Błąd wczytywania pliku FXML");
-        }
-    }
-    */
 
     private void otworzZamowienia(javafx.scene.input.MouseEvent mouseEvent) {
         try {
