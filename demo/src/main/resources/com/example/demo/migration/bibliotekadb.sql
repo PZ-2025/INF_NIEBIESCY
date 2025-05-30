@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `czytelnicy` (
     `imie` varchar(20) NOT NULL,
     `nazwisko` varchar(30) NOT NULL,
     `tel` bigint(15) NOT NULL,
-    `email` varchar(20) NOT NULL,
+    `email` varchar(30) NOT NULL,
     `haslo` varchar(255) NOT NULL,
     `ulica` varchar(30) NOT NULL,
     `miasto` varchar(20) NOT NULL,
@@ -68,6 +68,8 @@ CREATE TABLE IF NOT EXISTS `pracownicy` (
     `tel` varchar(15) NOT NULL,
     `email` varchar(30) NOT NULL,
     `haslo` varchar(255) NOT NULL,
+    `ulica` varchar(30) NOT NULL,
+    `miasto` varchar(20) NOT NULL,
     `rola` varchar(20) NOT NULL,
     PRIMARY KEY (`id_pracownika`),
     UNIQUE KEY `unique_email` (`email`)

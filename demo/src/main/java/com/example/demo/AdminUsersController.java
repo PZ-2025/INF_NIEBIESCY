@@ -1,10 +1,14 @@
 package com.example.demo;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -21,21 +25,60 @@ public class AdminUsersController {
     @FXML
     private Label logoutButton;
     @FXML
-    private Button roleButton;
+    private Button zmienRoleButton;
     private Pracownik aktualnyPracownik;
 
     public void setAktualnyPracownik(Pracownik pracownik) {
         this.aktualnyPracownik = pracownik;
     }
+    @FXML
+    private TableView<UserViewModel> usersTable;
+
+    @FXML
+    private TableColumn<UserViewModel, String> imieColumn;
+    @FXML
+    private TableColumn<UserViewModel, String> nazwiskoColumn;
+    @FXML
+    private TableColumn<UserViewModel, String> emailColumn;
+    @FXML
+    private TableColumn<UserViewModel, String> rolaColumn;
 
     public void initialize() {
         ordersButton.setOnMouseClicked(this::otworzZamowienia);
         usersButton.setOnMouseClicked(this::otworzUzytkownikow);
         booksButton.setOnMouseClicked(this::otworzKsiegozbior);
         logoutButton.setOnMouseClicked(this::wyloguj);
-        roleButton.setOnMouseClicked(this::otworzRole);
+        //roleButton.setOnMouseClicked(this::otworzRole);
+        imieColumn.setCellValueFactory(new PropertyValueFactory<>("imie"));
+        nazwiskoColumn.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        rolaColumn.setCellValueFactory(new PropertyValueFactory<>("rola"));
+
+        loadUsers();
+
+        zmienRoleButton.setOnAction(event -> zmienRole());
     }
 
+    private void loadUsers() {
+        ObservableList<UserViewModel> users = UserDAO.getAllUsers();
+        usersTable.setItems(users);
+    }
+
+
+    @FXML
+    private void zmienRole() {
+        UserViewModel selectedUser = usersTable.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            if (selectedUser.getRola().equals("czytelnik")) {
+                UserDAO.promoteCzytelnikToPracownik(selectedUser.getEmail());
+            } else if (selectedUser.getRola().equals("bibliotekarz")) {
+                UserDAO.downgradePracownikToCzytelnik(selectedUser.getEmail());
+            }
+            loadUsers();
+        }
+    }
+
+    /*
     private void otworzRole(javafx.scene.input.MouseEvent mouseEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("admin-role-view.fxml"));
@@ -55,6 +98,7 @@ public class AdminUsersController {
             System.out.println("Błąd wczytywania pliku FXML");
         }
     }
+    */
 
     private void otworzZamowienia(javafx.scene.input.MouseEvent mouseEvent) {
         try {

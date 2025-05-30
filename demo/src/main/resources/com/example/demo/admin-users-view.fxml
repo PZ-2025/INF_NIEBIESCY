@@ -69,15 +69,15 @@
          <children>
             <AnchorPane layoutY="57.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="689.0">
                <children>
-                  <TableView layoutX="85.0" layoutY="14.0" prefHeight="405.0" prefWidth="519.0">
+                  <TableView fx:id="usersTable" layoutX="85.0" layoutY="14.0" prefHeight="405.0" prefWidth="519.0">
                      <columns>
-                        <TableColumn prefWidth="124.0" text="Imię" />
-                        <TableColumn prefWidth="119.0" text="Nazwisko" />
-                        <TableColumn prefWidth="141.0" text="Email" />
-                        <TableColumn prefWidth="134.0" text="Rola" />
+                        <TableColumn fx:id="imieColumn" prefWidth="124.0" text="Imię" />
+                        <TableColumn fx:id="nazwiskoColumn" prefWidth="119.0" text="Nazwisko" />
+                        <TableColumn fx:id="emailColumn" prefWidth="141.0" text="Email" />
+                        <TableColumn fx:id="rolaColumn" prefWidth="134.0" text="Rola" />
                      </columns>
                   </TableView>
-                  <Button fx:id="roleButton" layoutX="85.0" layoutY="431.0" mnemonicParsing="false" text="Nadaj rolę">
+                  <Button onAction="#zmienRole" fx:id="zmienRoleButton" layoutX="85.0" layoutY="431.0" mnemonicParsing="false" text="Zmień rolę">
                      <font>
                         <Font size="14.0" />
                      </font>
