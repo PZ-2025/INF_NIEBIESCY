@@ -1,13 +1,18 @@
 package com.example.demo;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class AdminBooksController {
     @FXML
@@ -19,6 +24,27 @@ public class AdminBooksController {
     @FXML
     private Label logoutButton;
     private Pracownik aktualnyPracownik;
+    @FXML
+    private TableView<BookDetails> booksTable;
+
+    @FXML
+    private TableColumn<BookDetails, String> idColumn;
+    @FXML
+    private TableColumn<BookDetails, String> tytulColumn;
+    @FXML
+    private TableColumn<BookDetails, String> gatunekColumn;
+    @FXML
+    private TableColumn<BookDetails, String> autorColumn;
+    @FXML
+    private TableColumn<BookDetails, String> rokWydaniaColumn;
+    @FXML
+    private TableColumn<BookDetails, String> wydawnictwoColumn;
+    @FXML
+    private TableColumn<BookDetails, String> isbnColumn;
+    @FXML
+    private TableColumn<BookDetails, String> iloscColumn;
+
+    private final BookDAO bookDAO = new BookDAO();
 
     public void setAktualnyPracownik(Pracownik pracownik) {
         this.aktualnyPracownik = pracownik;
@@ -29,6 +55,21 @@ public class AdminBooksController {
         usersButton.setOnMouseClicked(this::otworzUzytkownikow);
         booksButton.setOnMouseClicked(this::otworzKsiegozbior);
         logoutButton.setOnMouseClicked(this::wyloguj);
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("idKsiazki"));
+        tytulColumn.setCellValueFactory(new PropertyValueFactory<>("tytul"));
+        gatunekColumn.setCellValueFactory(new PropertyValueFactory<>("gatunek"));
+        autorColumn.setCellValueFactory(new PropertyValueFactory<>("autor"));
+        rokWydaniaColumn.setCellValueFactory(new PropertyValueFactory<>("dataDodania"));
+        wydawnictwoColumn.setCellValueFactory(new PropertyValueFactory<>("wydawnictwo"));
+        isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+        iloscColumn.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
+
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connection = connectNow.getConnection();
+
+        ObservableList<BookDetails> bookDetailsList = bookDAO.loadAllBookDetails(connection);
+
+        booksTable.setItems(bookDetailsList);
     }
 
     private void otworzZamowienia(javafx.scene.input.MouseEvent mouseEvent) {
