@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -147,7 +146,7 @@
                               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="rokWydaniaField" text="Rok" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <TextField fx:id="dataDodaniaField" text="Rok" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                            </GridPane.margin>
@@ -190,18 +189,13 @@
                         <TableColumn fx:id="tytulColumn" prefWidth="94.39997100830078" text="Tytuł" />
                         <TableColumn fx:id="gatunekColumn" prefWidth="94.39997100830078" text="Gatunek" />
                         <TableColumn fx:id="autorColumn" prefWidth="114.39996337890625" text="Autor" />
-                        <TableColumn fx:id="rokWydaniaColumn" prefWidth="77.0" text="Rok wydania" />
+                        <TableColumn fx:id="dataDodaniaColumn" prefWidth="77.0" text="Data dodania" />
                         <TableColumn fx:id="wydawnictwoColumn" prefWidth="114.0" text="Wydawnictwo" />
                         <TableColumn fx:id="isbnColumn" prefWidth="151.0" text="ISBN" />
                         <TableColumn fx:id="iloscColumn" prefWidth="57.0" text="Ilość" />
                      </columns>
                   </TableView>
-                  <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="570.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@foto/lupa.png" />
-                     </image>
-                  </ImageView>
-                  <TextField layoutX="413.0" layoutY="236.0" promptText="Wyszukaj tytułu" />
+                  <Label fx:id="errorLabel" layoutX="263.0" layoutY="241.0" prefHeight="17.0" prefWidth="229.0" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="57.0" prefWidth="689.0" style="-fx-border-width: 0 0 2 0;">

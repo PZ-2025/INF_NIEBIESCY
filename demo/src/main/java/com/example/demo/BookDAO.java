@@ -9,6 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BookDAO {
+
+    private final Connection connection;
+
+    public BookDAO(Connection connection) {
+        this.connection = connection;
+    }
+
+
     public ObservableList<Book> loadBooksFromDatabase(Connection connection) {
         ObservableList<Book> books = FXCollections.observableArrayList();
         String query = "SELECT ksiazki.*, autorzy.nazwa, gatunek.nazwa_gatunku " +
@@ -122,53 +130,40 @@ public class BookDAO {
     }
 
     // Dodaj książkę
-    public void addBook(Connection connection, BookDetails book) {
-        String query = """
-            INSERT INTO ksiazki (id_autora, id_gatunku, tytul, wydawnictwo, data_dodania, ISBN, ilosc)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """;
-
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, book.getAutor()); // zakładamy, że przekazujesz id_autora jako String
-            statement.setString(2, book.getGatunek()); // id_gatunku
-            statement.setString(3, book.getTytul());
+    public void addBook(BookDetails book, String idAutora, String idGatunku) throws SQLException {
+        String query = "INSERT INTO ksiazki (tytul, id_autora, id_gatunku, wydawnictwo, data_dodania, ISBN, ilosc) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, book.getTytul());
+            statement.setString(2, idAutora);
+            statement.setString(3, idGatunku);
             statement.setString(4, book.getWydawnictwo());
             statement.setString(5, book.getDataDodania());
             statement.setString(6, book.getIsbn());
             statement.setString(7, book.getIlosc());
 
             statement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     // Usuń książkę
-    public void deleteBook(Connection connection, String bookId) {
+    public void deleteBook(String idKsiazki) {
         String query = "DELETE FROM ksiazki WHERE id_ksiazki=?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, bookId);
+            statement.setString(1, idKsiazki);
             statement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     // Edytuj książkę
-    public void updateBook(Connection connection, BookDetails book) {
-        String query = """
-            UPDATE ksiazki 
-            SET id_autora=?, id_gatunku=?, tytul=?, wydawnictwo=?, data_dodania=?, ISBN=?, ilosc=?
-            WHERE id_ksiazki=?
-        """;
+    public void updateBook(BookDetails book, String idAutora, String idGatunku) {
+        String query = "UPDATE ksiazki SET tytul=?, id_autora=?, id_gatunku=?, wydawnictwo=?, data_dodania=?, ISBN=?, ilosc=? WHERE id_ksiazki=?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, book.getAutor());
-            statement.setString(2, book.getGatunek());
-            statement.setString(3, book.getTytul());
+            statement.setString(1, book.getTytul());
+            statement.setString(2, idAutora);
+            statement.setString(3, idGatunku);
             statement.setString(4, book.getWydawnictwo());
             statement.setString(5, book.getDataDodania());
             statement.setString(6, book.getIsbn());
@@ -176,7 +171,6 @@ public class BookDAO {
             statement.setString(8, book.getIdKsiazki());
 
             statement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

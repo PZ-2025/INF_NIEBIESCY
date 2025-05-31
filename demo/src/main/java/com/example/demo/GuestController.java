@@ -201,7 +201,7 @@ public class GuestController {
         DatabaseConnection connection = new DatabaseConnection();
         Connection conn = connection.getConnection();
 
-        BookDAO dao = new BookDAO();
+        BookDAO dao = new BookDAO(conn);
         ObservableList<Book> books = dao.loadBooksFromDatabase(conn);
 
         booksTable.setItems(books);

@@ -138,7 +138,7 @@ public class KartaKsiazkiPdf {
         }
 
         // Pobierz dane książki
-        BookDAO dao = new BookDAO();
+        BookDAO dao = new BookDAO(conn);
         ObservableList<BookDetails> bookList = dao.loadBookDetails(conn, bookId);
 
         if (bookList.isEmpty()) {

@@ -97,7 +97,7 @@ public class PdfTest {
         Connection conn = connection.getConnection();
 
         // Tworzymy obiekt Book, aby załadować książki
-        BookDAO book = new BookDAO();
+        BookDAO book = new BookDAO(conn);
 
         ObservableList<Book> books = book.loadBooksFromDatabase(conn); // Pobieranie książek z bazy danych
 
