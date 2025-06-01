@@ -64,24 +64,24 @@
    <center>
       <AnchorPane prefHeight="502.0" prefWidth="695.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutY="57.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="796.0" style="-fx-background-color: #70B1FF;">
+            <AnchorPane layoutY="57.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="796.0" style="-fx-background-color: #7ab4fa;">
                <children>
                   <Button fx:id="returnButton" layoutX="19.0" layoutY="396.0" mnemonicParsing="false" text="Wróć">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <TableView layoutX="19.0" layoutY="14.0" prefHeight="378.0" prefWidth="759.0">
+                  <TableView fx:id="ordersTable" layoutX="19.0" layoutY="14.0" prefHeight="378.0" prefWidth="759.0">
                      <columns>
-                        <TableColumn prefWidth="38.0" text="ID" />
-                        <TableColumn prefWidth="100.0" text="Tytuł" />
-                        <TableColumn prefWidth="114.39996337890625" text="Autor" />
-                        <TableColumn prefWidth="77.0" text="Rok wydania" />
-                        <TableColumn prefWidth="114.0" text="Wydawnictwo" />
-                        <TableColumn prefWidth="108.0" text="ISBN" />
-                        <TableColumn prefWidth="41.0" text="Ilość" />
-                        <TableColumn prefWidth="87.0" text="Dostawca" />
-                        <TableColumn minWidth="6.0" prefWidth="78.0" text="Adres" />
+                        <TableColumn fx:id="idColumn" prefWidth="38.0" text="ID" />
+                        <TableColumn fx:id="tytulColumn" prefWidth="100.0" text="Tytuł" />
+                        <TableColumn fx:id="autorColumn" prefWidth="114.39996337890625" text="Autor" />
+                        <TableColumn fx:id="rokWydaniaColumn" prefWidth="77.0" text="Rok wydania" />
+                        <TableColumn fx:id="wydawnictwoColumn" prefWidth="114.0" text="Wydawnictwo" />
+                        <TableColumn fx:id="isbnColumn" prefWidth="108.0" text="ISBN" />
+                        <TableColumn fx:id="iloscColumn" prefWidth="41.0" text="Ilość" />
+                        <TableColumn fx:id="dostawcaColumn" prefWidth="87.0" text="Dostawca" />
+                        <TableColumn fx:id="adresColumn" minWidth="6.0" prefWidth="78.0" text="Adres" />
                      </columns>
                   </TableView>
                </children>

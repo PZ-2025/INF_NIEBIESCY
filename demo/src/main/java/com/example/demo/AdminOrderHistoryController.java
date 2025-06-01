@@ -1,14 +1,22 @@
 package com.example.demo;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class AdminOrderHistoryController {
     @FXML
@@ -22,6 +30,28 @@ public class AdminOrderHistoryController {
     @FXML
     private Button returnButton;
     private Pracownik aktualnyPracownik;
+    @FXML
+    private TableView<OrderHistory> ordersTable;
+    @FXML
+    private TableColumn<OrderHistory, String> idColumn;
+    @FXML
+    private TableColumn<OrderHistory, String> tytulColumn;
+    @FXML
+    private TableColumn<OrderHistory, String> autorColumn;
+    @FXML
+    private TableColumn<OrderHistory, String> rokWydaniaColumn;
+    @FXML
+    private TableColumn<OrderHistory, String> wydawnictwoColumn;
+    @FXML
+    private TableColumn<OrderHistory, String> isbnColumn;
+    @FXML
+    private TableColumn<OrderHistory, String> iloscColumn;
+    @FXML
+    private TableColumn<OrderHistory, String> dostawcaColumn;
+    @FXML
+    private TableColumn<OrderHistory, String> adresColumn;
+
+    private ObservableList<OrderHistory> orderHistoryList = FXCollections.observableArrayList();
 
     public void setAktualnyPracownik(Pracownik pracownik) {
         this.aktualnyPracownik = pracownik;
@@ -33,6 +63,51 @@ public class AdminOrderHistoryController {
         booksButton.setOnMouseClicked(this::otworzKsiegozbior);
         logoutButton.setOnMouseClicked(this::wyloguj);
         returnButton.setOnMouseClicked(this::otworzZamowienia);
+        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+        tytulColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTytul()));
+        autorColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAutor()));
+        rokWydaniaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRokWydania()));
+        wydawnictwoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getWydawnictwo()));
+        isbnColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIsbn()));
+        iloscColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIlosc()));
+        dostawcaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDostawca()));
+        adresColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAdres()));
+        loadOrderHistory();
+    }
+
+    private void loadOrderHistory() {
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+
+        // Wyświetlanie książek, których ilość nie przekracza 2 egzemplarzy
+        String query = "SELECT z.id_zamowienia, k.tytul, a.nazwa, " +
+                "YEAR(k.data_dodania) AS rok_wydania, k.wydawnictwo, k.ISBN, z.ilosc, " +
+                "d.nazwa_dostawcy, d.adres FROM zamowienia z JOIN ksiazki k " +
+                "ON z.id_ksiazki = k.id_ksiazki JOIN autorzy a " +
+                "ON k.id_autora = a.id_autora JOIN dostawcy d ON z.id_dostawcy = d.id_dostawcy;";
+
+        try {
+            Statement statement = connectDB.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                String id = resultSet.getString("id_zamowienia");
+                String tytul = resultSet.getString("tytul");
+                String autor = resultSet.getString("nazwa");
+                String rokWydania = resultSet.getString("rok_wydania");
+                String wydawnictwo = resultSet.getString("wydawnictwo");
+                String isbn = resultSet.getString("ISBN");
+                String ilosc = resultSet.getString("ilosc");
+                String dostawca = resultSet.getString("nazwa_dostawcy");
+                String adres = resultSet.getString("adres");
+                orderHistoryList.add(new OrderHistory(id, tytul, autor, rokWydania, wydawnictwo, isbn, ilosc, dostawca, adres));
+            }
+
+            ordersTable.setItems(orderHistoryList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void otworzZamowienia(javafx.scene.input.MouseEvent mouseEvent) {
