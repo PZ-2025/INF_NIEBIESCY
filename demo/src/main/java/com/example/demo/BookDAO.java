@@ -145,14 +145,12 @@ public class BookDAO {
     }
 
     // Usuń książkę
-    public void deleteBook(String idKsiazki) {
+    public void deleteBook(String idKsiazki) throws SQLException{
         String query = "DELETE FROM ksiazki WHERE id_ksiazki=?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, idKsiazki);
             statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

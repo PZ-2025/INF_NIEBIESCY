@@ -52,7 +52,7 @@ VALUES
 ('Milosc',
   (SELECT id_autora FROM autorzy WHERE nazwa = 'Wislawa Szymborska'),
   (SELECT id_gatunku FROM gatunek WHERE nazwa_gatunku = 'Poezja'),
-  'Wydawnictwo N', NOW(), '978-83-4567-890-1', 8),
+  'Wydawnictwo N', NOW(), '978-83-4567-890-1', 1),
 
 ('Ruchome piaski',
   (SELECT id_autora FROM autorzy WHERE nazwa = 'Wislawa Szymborska'),
@@ -98,7 +98,7 @@ VALUES
 ('Ojciec zadzumionych',
   (SELECT id_autora FROM autorzy WHERE nazwa = 'Juliusz Slowacki'),
   (SELECT id_gatunku FROM gatunek WHERE nazwa_gatunku = 'Poezja'),
-  'Wydawnictwo W', NOW(), '978-83-3456-789-0', 5),
+  'Wydawnictwo W', NOW(), '978-83-3456-789-0', 1),
 
 ('Krol-Duch',
   (SELECT id_autora FROM autorzy WHERE nazwa = 'Juliusz Slowacki'),
@@ -141,7 +141,7 @@ VALUES
 ('Protesilas i Laodamia',
   (SELECT id_autora FROM autorzy WHERE nazwa = 'Stanislaw Wyspianski'),
   (SELECT id_gatunku FROM gatunek WHERE nazwa_gatunku = 'Dramat romantyczny'),
-  'Wydawnictwo F', NOW(), '978-83-0123-456-7', 6),
+  'Wydawnictwo F', NOW(), '978-83-0123-456-7', 1),
 
 -- Tadeusz Rejtan
 ('Pan Tadeusz',

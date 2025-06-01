@@ -128,7 +128,7 @@ public class AdminUsersController {
             AdminBooksController controller = fxmlLoader.getController();
             controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) booksButton.getScene().getWindow();
-            Scene scene = new Scene(root, 1000, 600);
+            Scene scene = new Scene(root, 1170, 700);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

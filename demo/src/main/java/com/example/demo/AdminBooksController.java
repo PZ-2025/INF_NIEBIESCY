@@ -89,6 +89,16 @@ public class AdminBooksController {
                 iloscField.setText(newSelection.getIlosc());
             }
         });
+
+        // ustawienie numerycznego sortowania po ID
+        idColumn.setComparator((id1, id2) -> {
+            return Integer.compare(Integer.parseInt(id1), Integer.parseInt(id2));
+        });
+
+        // ustawienie numerycznego sortowania po ilosc
+        iloscColumn.setComparator((id1, id2) -> {
+            return Integer.compare(Integer.parseInt(id1), Integer.parseInt(id2));
+        });
     }
 
     private void refreshTable() {
@@ -115,7 +125,7 @@ public class AdminBooksController {
             String idGatunku = getGenreIdByName(gatunek);
 
             if (idAutora == null || idGatunku == null) {
-                errorLabel.setText("Nieprawidłowy autor lub gatunek.");
+                errorLabel.setText("Nieprawidłowy gatunek.");
                 return;
             }
 
@@ -143,7 +153,7 @@ public class AdminBooksController {
         BookDetails selectedBook = booksTable.getSelectionModel().getSelectedItem();
         if (selectedBook == null) {
             // Możesz wyświetlić alert, że nic nie wybrano
-            System.out.println("Nie wybrano książki do edycji!");
+            errorLabel.setText("Nie wybrano książki.");
             return;
         }
 
@@ -181,20 +191,24 @@ public class AdminBooksController {
 
     @FXML
     private void handleDeleteBook() {
-        BookDetails selectedBook = booksTable.getSelectionModel().getSelectedItem();
-        if (selectedBook == null) {
-            System.out.println("Nie wybrano książki do usunięcia!");
-            return;
-        }
-
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connection = connectNow.getConnection();
 
+        BookDetails selectedBook = booksTable.getSelectionModel().getSelectedItem();
         BookDAO dao = new BookDAO(connection);
-        dao.deleteBook(selectedBook.getIdKsiazki());
+        if (selectedBook != null) {
+            try {
+                dao.deleteBook(selectedBook.getIdKsiazki());
+                refreshTable();
+            } catch (SQLIntegrityConstraintViolationException e) {
+                errorLabel.setText("Książka jest wypożyczona lub zarezerwowana.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            errorLabel.setText("Nie wybrano książki.");
+        }
 
-        refreshTable();
-        clearFields();
     }
 
     private void clearFields() {
@@ -311,7 +325,7 @@ public class AdminBooksController {
             AdminBooksController controller = fxmlLoader.getController();
             controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) booksButton.getScene().getWindow();
-            Scene scene = new Scene(root, 1000, 600);
+            Scene scene = new Scene(root, 1170, 700);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
