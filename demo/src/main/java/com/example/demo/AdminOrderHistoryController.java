@@ -39,7 +39,7 @@ public class AdminOrderHistoryController {
     @FXML
     private TableColumn<OrderHistory, String> autorColumn;
     @FXML
-    private TableColumn<OrderHistory, String> rokWydaniaColumn;
+    private TableColumn<OrderHistory, String> dataDodaniaColumn;
     @FXML
     private TableColumn<OrderHistory, String> wydawnictwoColumn;
     @FXML
@@ -66,7 +66,7 @@ public class AdminOrderHistoryController {
         idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         tytulColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTytul()));
         autorColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAutor()));
-        rokWydaniaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRokWydania()));
+        dataDodaniaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDataDodania()));
         wydawnictwoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getWydawnictwo()));
         isbnColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIsbn()));
         iloscColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIlosc()));
@@ -81,7 +81,7 @@ public class AdminOrderHistoryController {
 
         // Wyświetlanie książek, których ilość nie przekracza 2 egzemplarzy
         String query = "SELECT z.id_zamowienia, k.tytul, a.nazwa, " +
-                "YEAR(k.data_dodania) AS rok_wydania, k.wydawnictwo, k.ISBN, z.ilosc, " +
+                "YEAR(k.data_dodania) AS data_dodania, k.wydawnictwo, k.ISBN, z.ilosc, " +
                 "d.nazwa_dostawcy, d.adres FROM zamowienia z JOIN ksiazki k " +
                 "ON z.id_ksiazki = k.id_ksiazki JOIN autorzy a " +
                 "ON k.id_autora = a.id_autora JOIN dostawcy d ON z.id_dostawcy = d.id_dostawcy;";
@@ -94,13 +94,13 @@ public class AdminOrderHistoryController {
                 String id = resultSet.getString("id_zamowienia");
                 String tytul = resultSet.getString("tytul");
                 String autor = resultSet.getString("nazwa");
-                String rokWydania = resultSet.getString("rok_wydania");
+                String data_dodania = resultSet.getString("data_dodania");
                 String wydawnictwo = resultSet.getString("wydawnictwo");
                 String isbn = resultSet.getString("ISBN");
                 String ilosc = resultSet.getString("ilosc");
                 String dostawca = resultSet.getString("nazwa_dostawcy");
                 String adres = resultSet.getString("adres");
-                orderHistoryList.add(new OrderHistory(id, tytul, autor, rokWydania, wydawnictwo, isbn, ilosc, dostawca, adres));
+                orderHistoryList.add(new OrderHistory(id, tytul, autor, data_dodania, wydawnictwo, isbn, ilosc, dostawca, adres));
             }
 
             ordersTable.setItems(orderHistoryList);

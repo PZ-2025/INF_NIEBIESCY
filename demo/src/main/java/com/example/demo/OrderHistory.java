@@ -6,18 +6,18 @@ public class OrderHistory {
     private final SimpleStringProperty id;
     private final SimpleStringProperty tytul;
     private final SimpleStringProperty autor;
-    private final SimpleStringProperty rokWydania;
+    private final SimpleStringProperty dataDodania;
     private final SimpleStringProperty wydawnictwo;
     private final SimpleStringProperty isbn;
     private final SimpleStringProperty ilosc;
     private final SimpleStringProperty dostawca;
     private final SimpleStringProperty adres;
 
-    public OrderHistory(String id, String tytul, String autor, String rokWydania, String wydawnictwo, String isbn, String ilosc, String dostawca, String adres) {
+    public OrderHistory(String id, String tytul, String autor, String dataDodania, String wydawnictwo, String isbn, String ilosc, String dostawca, String adres) {
         this.id = new SimpleStringProperty(id);
         this.tytul = new SimpleStringProperty(tytul);
         this.autor = new SimpleStringProperty(autor);
-        this.rokWydania = new SimpleStringProperty(rokWydania);
+        this.dataDodania = new SimpleStringProperty(dataDodania);
         this.wydawnictwo = new SimpleStringProperty(wydawnictwo);
         this.isbn = new SimpleStringProperty(isbn);
         this.ilosc = new SimpleStringProperty(ilosc);
@@ -40,8 +40,8 @@ public class OrderHistory {
     }
 
 
-    public String getRokWydania() {
-        return rokWydania.get();
+    public String getDataDodania() {
+        return dataDodania.get();
     }
 
 

@@ -106,15 +106,13 @@ CREATE TABLE IF NOT EXISTS `zamowienia` (
     `id_zamowienia` int(11) NOT NULL AUTO_INCREMENT,
     `id_ksiazki` int(11) NOT NULL,
     `id_dostawcy` int(11) NOT NULL,
-    `id_pracownika` int(11) NOT NULL,
+    `data_dodania` DATETIME NOT NULL,
     `ilosc` int(11) NOT NULL,
     PRIMARY KEY (`id_zamowienia`),
-    KEY `fk_id_pracownika` (`id_pracownika`),
     KEY `fk_id_dostawcy` (`id_dostawcy`),
     KEY `fk_id_ksiazki2` (`id_ksiazki`),
-    FOREIGN KEY (`id_pracownika`) REFERENCES `pracownicy` (`id_pracownika`),
     FOREIGN KEY (`id_dostawcy`) REFERENCES `dostawcy` (`id_dostawcy`),
-    FOREIGN KEY (`id_ksiazki`) REFERENCES `ksiazki` (`id_ksiazki`)
+    FOREIGN KEY (`id_ksiazki`) REFERENCES `ksiazki` (`id_ksiazki`) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabela 'rezerwacje'

@@ -105,7 +105,7 @@ public class AdminOrdersController {
             AdminOrderHistoryController controller = fxmlLoader.getController();
             controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) historyButton.getScene().getWindow();
-            Scene scene = new Scene(root, 1000, 600);
+            Scene scene = new Scene(root, 1200, 600);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -125,7 +125,7 @@ public class AdminOrdersController {
             AdminOrderFormController controller = fxmlLoader.getController();
             controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) orderFormButton.getScene().getWindow();
-            Scene scene = new Scene(root, 540, 420);
+            Scene scene = new Scene(root, 530, 320);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
