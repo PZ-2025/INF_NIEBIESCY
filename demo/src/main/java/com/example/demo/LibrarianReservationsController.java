@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.itextpdf.forms.form.element.Radio;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,7 +27,7 @@ public class LibrarianReservationsController {
     @FXML private TableColumn<Rezerwacje, String> Ilosc;
     @FXML private TableColumn<Rezerwacje, String> DataRezerwacji;
     @FXML private TableColumn<Rezerwacje, String> PlanowanaData;
-    @FXML private TableColumn<Rezerwacje, Boolean> Status;
+    @FXML private TableColumn<Rezerwacje, Integer> Status;
     @FXML
     private TableColumn<Rezerwacje, Boolean> Radio;
 
@@ -73,14 +72,19 @@ public class LibrarianReservationsController {
                 tableView.getItems().get(index).selectedProperty()
         ));
 
-        Status.setCellFactory(column -> new TableCell<Rezerwacje, Boolean>() {
+        Status.setCellFactory(column -> new TableCell<Rezerwacje, Integer>() {
             @Override
-            protected void updateItem(Boolean status, boolean empty) {
+            protected void updateItem(Integer status, boolean empty) {
                 super.updateItem(status, empty);
                 if (empty || status == null) {
                     setText(null);
                 } else {
-                    setText(status ? "Zaakceptowane" : "Oczekujące");
+                    switch (status) {
+                        case 1 -> setText("Zaakceptowane");
+                        case 0 -> setText("Oczekujące");
+                        case -1 -> setText("Odrzucone");
+                        default -> setText("Nieznany");
+                    }
                 }
             }
         });
@@ -91,7 +95,7 @@ public class LibrarianReservationsController {
         Radio.setEditable(true);
 
         acceptButton.setOnAction(event -> acceptSelectedReservations());
-
+        denyButton.setOnAction(event -> discrespectSelectedReservations());
     }
 
     private void loadData() {
@@ -106,12 +110,11 @@ public class LibrarianReservationsController {
         ObservableList<Rezerwacje> lista = FXCollections.observableArrayList();
 
         String sql = """
-    
-    SELECT r.id_rezerwacji ,c.imie, c.nazwisko, c.email, k.tytul, kw.ilosc_wypozyczonych, r.data_zamowienia, r.planowana_data, r.status
-    FROM rezerwacje r
-    JOIN czytelnicy c ON r.id_czytelnika = c.id_czytelnika
-    JOIN ksiazki k ON r.id_ksiazki = k.id_ksiazki
-    JOIN ksiazki_wypozyczone kw ON r.id_ksiazki = kw.id_ksiazki;
+            SELECT r.id_rezerwacji ,c.imie, c.nazwisko, c.email, k.tytul, (k.ilosc - IFNULL(kw.ilosc_wypozyczonych, 0)) AS ilosc_dostepna, r.data_zamowienia, r.planowana_data, r.status
+            FROM rezerwacje r
+            LEFT JOIN czytelnicy c ON r.id_czytelnika = c.id_czytelnika
+            LEFT JOIN ksiazki k ON r.id_ksiazki = k.id_ksiazki
+            LEFT JOIN ksiazki_wypozyczone kw ON r.id_ksiazki = kw.id_ksiazki;
     
     """;
 
@@ -124,12 +127,12 @@ public class LibrarianReservationsController {
                 String nazwisko = rs.getString("nazwisko");
                 String email = rs.getString("email");
                 String tytul = rs.getString("tytul");
-                String ilosc_wyp = rs.getString("ilosc_wypozyczonych");
+                String ilosc_dostepna = rs.getString("ilosc_dostepna");
                 String data_zamowienia = rs.getString("data_zamowienia");
                 String planowana_data = rs.getString("planowana_data");
-                Boolean status = rs.getBoolean("status");
+                int status = rs.getInt("status");
 
-                lista.add(new Rezerwacje(id,imie,nazwisko, email, tytul, ilosc_wyp,data_zamowienia, planowana_data, status));
+                lista.add(new Rezerwacje(id,imie,nazwisko, email, tytul, ilosc_dostepna,data_zamowienia, planowana_data, status));
             }
 
         } catch (SQLException e) {
@@ -144,15 +147,14 @@ public class LibrarianReservationsController {
         try (Connection conn = connection.getConnection()) {
             conn.setAutoCommit(false);
 
-            String updateSql = "UPDATE rezerwacje SET status = true WHERE id_rezerwacji = ?";
+            String updateSql = "UPDATE rezerwacje SET status = 1 WHERE id_rezerwacji = ?";
 
             try (PreparedStatement ps = conn.prepareStatement(updateSql)) {
                 for (Rezerwacje r : tableView.getItems()) {
-                    if (r.isSelected() && !r.isStatus()) {
+                    if (r.isSelected() && r.getStatus() != 1) {
                         ps.setInt(1, r.getId());
                         ps.addBatch();
-
-                        r.statusProperty().set(true);
+                        r.setStatus(1); // musisz mieć setter lub zaktualizować obiekt inaczej
                         r.setSelected(false);
                     }
                 }
@@ -169,6 +171,34 @@ public class LibrarianReservationsController {
         }
     }
 
+    private void discrespectSelectedReservations() {
+        DatabaseConnection connection = new DatabaseConnection();
+        try (Connection conn = connection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            String updateSql = "UPDATE rezerwacje SET status = -1 WHERE id_rezerwacji = ?";
+
+            try (PreparedStatement ps = conn.prepareStatement(updateSql)) {
+                for (Rezerwacje r : tableView.getItems()) {
+                    if (r.isSelected() && r.getStatus() != 1) {
+                        ps.setInt(1, r.getId());
+                        ps.addBatch();
+                        r.setStatus(-1);
+                        r.setSelected(false);
+                    }
+                }
+
+                ps.executeBatch();
+            }
+
+            conn.commit();
+
+            tableView.refresh(); // wymuś odświeżenie widoku
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void otworzRezerwacje(javafx.scene.input.MouseEvent mouseEvent) {
         try {

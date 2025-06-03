@@ -11,9 +11,9 @@ public class Rezerwacje {
     private final StringProperty wyp;
     private final StringProperty data_zamowienia;
     private final StringProperty planowana_data;
-    private final BooleanProperty status;
+    private final IntegerProperty status;
 
-    public Rezerwacje(int id, String imie, String nazwisko, String email, String tytul, String wyp, String data_zamowienia, String planowana_data, Boolean status) {
+    public Rezerwacje(int id, String imie, String nazwisko, String email, String tytul, String wyp, String data_zamowienia, String planowana_data, int status) {
         this.id = new SimpleIntegerProperty(id);
         this.imie = new SimpleStringProperty(imie);
         this.nazwisko = new SimpleStringProperty(nazwisko);
@@ -22,7 +22,7 @@ public class Rezerwacje {
         this.wyp = new SimpleStringProperty(wyp);
         this.data_zamowienia = new SimpleStringProperty(data_zamowienia);
         this.planowana_data = new SimpleStringProperty(planowana_data);
-        this.status = new SimpleBooleanProperty(status);
+        this.status = new SimpleIntegerProperty(status);
     }
 
 
@@ -82,12 +82,8 @@ public class Rezerwacje {
         return planowana_data;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status.get();
-    }
-
-    public BooleanProperty statusProperty() {
-        return status;
     }
 
     private final BooleanProperty selected = new SimpleBooleanProperty(false);
@@ -111,4 +107,12 @@ public class Rezerwacje {
     public IntegerProperty idProperty() {
         return id;
     }
+
+    public void setStatus(int status) {
+        this.status.set(status);
+    }
+    public IntegerProperty statusProperty() {
+        return status;
+    }
+
 }
