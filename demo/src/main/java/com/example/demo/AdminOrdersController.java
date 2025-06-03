@@ -125,7 +125,7 @@ public class AdminOrdersController {
             AdminOrderFormController controller = fxmlLoader.getController();
             controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) orderFormButton.getScene().getWindow();
-            Scene scene = new Scene(root, 700, 300);
+            Scene scene = new Scene(root, 540, 420);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

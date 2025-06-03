@@ -1,35 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.demo.LibrarianBooksController"
-            prefHeight="700.0" prefWidth="1170.0"
-            style="-fx-background-color: #70B1FF;">
+<BorderPane prefHeight="700.0" prefWidth="1170.0" style="-fx-background-color: #70B1FF;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.LibrarianBooksController">
 
    <!-- GÓRA NAVBAR -->
    <top>
-      <AnchorPane prefHeight="45.0" style="-fx-background-color: #ECECEC; -fx-border-width: 0 0 2 0; -fx-border-color: #A3A3A3;">
+      <AnchorPane prefHeight="45.0" prefWidth="1170.0" style="-fx-background-color: #ECECEC; -fx-border-width: 0 0 2 0; -fx-border-color: #A3A3A3;">
          <children>
-            <Label fx:id="logoutButton" layoutX="792.0" layoutY="8.0" prefWidth="142.0" prefHeight="30.0"
-                   style="-fx-font-weight: BOLD; -fx-border-width: 0 2 0 2; -fx-border-color: #A3A3A3;" text="WYLOGUJ SIĘ">
-               <font><Font size="13.0"/></font>
+            <Label fx:id="logoutButton" alignment="CENTER" layoutX="792.0" layoutY="8.0" prefHeight="30.0" prefWidth="142.0" style="-fx-font-weight: BOLD; -fx-border-width: 0 2 0 2; -fx-border-color: #A3A3A3;" text="WYLOGUJ SIĘ">
+               <font><Font size="13.0" /></font>
             </Label>
-            <Label fx:id="booksButton" layoutX="550.0" layoutY="8.0" prefWidth="178.0" prefHeight="30.0"
-                   style="-fx-font-weight: BOLD; -fx-border-width: 0 2 0 2; -fx-border-color: #A3A3A3;" text="KSIĘGOZBIÓR">
-               <font><Font size="14.0"/></font>
+            <Label fx:id="booksButton" alignment="CENTER" layoutX="550.0" layoutY="8.0" prefHeight="30.0" prefWidth="178.0" style="-fx-font-weight: BOLD; -fx-border-width: 0 2 0 2; -fx-border-color: #A3A3A3;" text="KSIĘGOZBIÓR">
+               <font><Font size="14.0" /></font>
             </Label>
-            <Label fx:id="loansButton" layoutX="323.0" layoutY="8.0" prefWidth="177.0" prefHeight="30.0"
-                   style="-fx-font-weight: BOLD; -fx-border-width: 0 2 0 2; -fx-border-color: #A3A3A3;" text="WYPOŻYCZENIA">
-               <font><Font size="13.0"/></font>
+            <Label fx:id="loansButton" alignment="CENTER" layoutX="323.0" layoutY="8.0" prefHeight="30.0" prefWidth="177.0" style="-fx-font-weight: BOLD; -fx-border-width: 0 2 0 2; -fx-border-color: #A3A3A3;" text="WYPOŻYCZENIA">
+               <font><Font size="13.0" /></font>
             </Label>
-            <Label fx:id="reservationsButton" layoutX="85.0" layoutY="8.0" prefWidth="177.0" prefHeight="30.0"
-                   style="-fx-font-weight: BOLD; -fx-border-width: 0 2 0 2; -fx-border-color: #A3A3A3;" text="REZERWACJE">
-               <font><Font size="13.0"/></font>
+            <Label fx:id="reservationsButton" alignment="CENTER" layoutX="85.0" layoutY="8.0" prefHeight="30.0" prefWidth="177.0" style="-fx-font-weight: BOLD; -fx-border-width: 0 2 0 2; -fx-border-color: #A3A3A3;" text="REZERWACJE">
+               <font><Font size="13.0" /></font>
             </Label>
          </children>
       </AnchorPane>
@@ -39,10 +30,9 @@
    <left>
       <AnchorPane prefWidth="205.0" style="-fx-background-color: blue;">
          <children>
-            <ScrollPane fx:id="alphabetScrollPane" prefHeight="655.0" prefWidth="213.0"
-                        style="-fx-border-color: #A3A3A3; -fx-border-width: 0 2 0 0;">
+            <ScrollPane fx:id="alphabetScrollPane" prefHeight="655.0" prefWidth="213.0" style="-fx-border-color: #A3A3A3; -fx-border-width: 0 2 0 0;">
                <content>
-                  <VBox fx:id="alphabetBox" alignment="TOP_LEFT" spacing="10"/>
+                  <VBox fx:id="alphabetBox" alignment="TOP_LEFT" spacing="10" />
                </content>
             </ScrollPane>
          </children>
@@ -55,26 +45,26 @@
          <children>
 
             <!-- Formularz aktualizacji ilości -->
-            <Label layoutX="20.0" layoutY="15.0" text="Tytuł:" textFill="WHITE"/>
-            <TextField fx:id="tytulField" layoutX="70.0" layoutY="10.0" prefWidth="250.0" promptText="Wpisz tytuł książki"/>
+            <Label layoutX="20.0" layoutY="15.0" text="Tytuł:" textFill="WHITE" />
+            <TextField fx:id="tytulField" layoutX="70.0" layoutY="10.0" prefWidth="250.0" promptText="Wpisz tytuł książki" />
 
-            <Label layoutX="340.0" layoutY="15.0" text="Nowa ilość:" textFill="WHITE"/>
-            <TextField fx:id="iloscField" layoutX="420.0" layoutY="10.0" prefWidth="100.0" promptText="Np. 5"/>
+            <Label layoutX="340.0" layoutY="15.0" text="Nowa ilość:" textFill="WHITE" />
+            <TextField fx:id="iloscField" layoutX="420.0" layoutY="10.0" prefWidth="100.0" promptText="Np. 5" />
 
-            <Button fx:id="editIloscButton" layoutX="540.0" layoutY="9.0" text="Aktualizuj ilość"/>
-            <Label fx:id="errorLabel" layoutX="670.0" layoutY="13.0" textFill="RED"/>
+            <Button fx:id="editIloscButton" layoutX="540.0" layoutY="9.0" text="Aktualizuj ilość" />
+            <Label fx:id="errorLabel" layoutX="670.0" layoutY="13.0" textFill="RED" />
 
             <!-- Tabela książek -->
             <TableView fx:id="booksTable" layoutX="20.0" layoutY="50.0" prefHeight="600.0" prefWidth="900.0">
                <columns>
-                  <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID"/>
-                  <TableColumn fx:id="tytulColumn" prefWidth="150.0" text="Tytuł"/>
-                  <TableColumn fx:id="gatunekColumn" prefWidth="120.0" text="Gatunek"/>
-                  <TableColumn fx:id="autorColumn" prefWidth="120.0" text="Autor"/>
-                  <TableColumn fx:id="dataDodaniaColumn" prefWidth="130.0" text="Data dodania"/>
-                  <TableColumn fx:id="wydawnictwoColumn" prefWidth="130.0" text="Wydawnictwo"/>
-                  <TableColumn fx:id="isbnColumn" prefWidth="130.0" text="ISBN"/>
-                  <TableColumn fx:id="iloscColumn" prefWidth="60.0" text="Ilość"/>
+                  <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID" />
+                  <TableColumn fx:id="tytulColumn" prefWidth="150.0" text="Tytuł" />
+                  <TableColumn fx:id="gatunekColumn" prefWidth="120.0" text="Gatunek" />
+                  <TableColumn fx:id="autorColumn" prefWidth="120.0" text="Autor" />
+                  <TableColumn fx:id="dataDodaniaColumn" prefWidth="130.0" text="Data dodania" />
+                  <TableColumn fx:id="wydawnictwoColumn" prefWidth="130.0" text="Wydawnictwo" />
+                  <TableColumn fx:id="isbnColumn" prefWidth="130.0" text="ISBN" />
+                  <TableColumn fx:id="iloscColumn" prefWidth="60.0" text="Ilość" />
                </columns>
             </TableView>
 
@@ -83,7 +73,3 @@
    </center>
 
 </BorderPane>
-
-
-
-
