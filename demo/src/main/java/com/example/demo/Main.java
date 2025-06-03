@@ -18,7 +18,18 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        DatabaseMigration.main(args);
-        launch();
+        try {
+            // Start embedded MariaDB przed odpaleniem aplikacji
+            EmbeddedMariaDB.main(new String[0]);
+
+            // Możesz też wykonać migracje lub inicjalizację bazy, jeśli potrzebne:
+            DatabaseMigration.main(args);  // upewnij się, że ta klasa istnieje
+
+            // Start aplikacji JavaFX
+            launch(args);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

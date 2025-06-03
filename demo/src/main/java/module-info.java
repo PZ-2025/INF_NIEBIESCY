@@ -13,12 +13,13 @@ module com.example.demo {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
-    requires java.sql;
     requires jbcrypt;
     requires kernel;
     requires layout;
     requires io;
     requires forms;
+    requires ch.vorburger.mariadb4j;
+    requires org.mariadb.jdbc;
 
 
     opens com.example.demo to javafx.fxml;

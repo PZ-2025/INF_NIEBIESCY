@@ -10,10 +10,10 @@ public class DatabaseConnection {
         String databaseName = "bibliotekaDB";
         String databaseUser = "root";
         String databasePassword = "";
-        String databaseUrl = "jdbc:mysql://localhost/"+databaseName;
+        String databaseUrl = "jdbc:mariadb://localhost:3307/" + databaseName;
 
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("org.mariadb.jdbc.Driver");
             databaseLink = DriverManager.getConnection(databaseUrl, databaseUser, databasePassword);
         } catch (Exception e) {
             e.printStackTrace();
