@@ -17,6 +17,8 @@ public class LibrarianReaderController {
     @FXML
     private Label booksButton;
     @FXML
+    private Label zwrotyButton;
+    @FXML
     private Label logoutButton;
     private Pracownik aktualnyPracownik;
 
@@ -28,6 +30,7 @@ public class LibrarianReaderController {
         reservationsButton.setOnMouseClicked(this::otworzRezerwacje);
         loansButton.setOnMouseClicked(this::otworzWypozyczenia);
         booksButton.setOnMouseClicked(this::otworzKsiegozbior);
+        zwrotyButton.setOnMouseClicked(this::otworzZwroty);
         logoutButton.setOnMouseClicked(this::wyloguj);
     }
 
@@ -63,6 +66,26 @@ public class LibrarianReaderController {
             controller.setAktualnyPracownik(aktualnyPracownik);
             Stage stage = (Stage) loansButton.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd wczytywania pliku FXML");
+        }
+    }
+
+    private void otworzZwroty(javafx.scene.input.MouseEvent mouseEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("bibliotekarz-zwroty-view.fxml"));
+            if (fxmlLoader.getLocation() == null) {
+                System.out.println("Błąd: Nie znaleziono pliku bibliotekarz-zwroty-view.fxml");
+                return;
+            }
+            BorderPane root = fxmlLoader.load();
+            LibrarianZwrotyController controller = fxmlLoader.getController();
+            controller.setAktualnyPracownik(aktualnyPracownik);
+            Stage stage = (Stage) zwrotyButton.getScene().getWindow();
+            Scene scene = new Scene(root, 1170, 700);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

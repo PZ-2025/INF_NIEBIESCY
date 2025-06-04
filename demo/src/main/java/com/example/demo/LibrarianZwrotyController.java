@@ -1,23 +1,23 @@
 package com.example.demo;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import javafx.event.ActionEvent;
+
 import java.io.IOException;
 import java.sql.*;
 
-public class LibrarianLoanController {
+public class LibrarianZwrotyController {
     public ComboBox czytelnikBox;
+
     @FXML
     private Label reservationsButton;
     @FXML
@@ -30,14 +30,14 @@ public class LibrarianLoanController {
     private Label logoutButton;
     private Pracownik aktualnyPracownik;
 
-    @FXML private Button wypButton;
+    @FXML private Button zwrotButton;
 
-    @FXML private TableView<WypozyczNOW> tableBooks;
-    @FXML private TableColumn<WypozyczNOW, String> tytul;
-    @FXML private TableColumn<WypozyczNOW, String> autor;
-    @FXML private TableColumn<WypozyczNOW, String> gatunek;
-    @FXML private TableColumn<WypozyczNOW, String> dostepne;
-    @FXML private TableColumn<WypozyczNOW, Boolean> checkbox;
+    @FXML private TableView<Zwroty> tableBooks;
+    @FXML private TableColumn<Zwroty, String> tytul;
+    @FXML private TableColumn<Zwroty, String> autor;
+    @FXML private TableColumn<Zwroty, String> data_wyp;
+    @FXML private TableColumn<Zwroty, String> ISBN;
+    @FXML private TableColumn<Zwroty, Boolean> checkbox;
 
     public void setAktualnyPracownik(Pracownik pracownik) {
         this.aktualnyPracownik = pracownik;
@@ -52,8 +52,8 @@ public class LibrarianLoanController {
         // Kolumny tekstowe
         tytul.setCellValueFactory(cellData -> cellData.getValue().tytulProperty());
         autor.setCellValueFactory(cellData -> cellData.getValue().autorProperty());
-        gatunek.setCellValueFactory(cellData -> cellData.getValue().gatunekProperty());
-        dostepne.setCellValueFactory(cellData -> cellData.getValue().dostepneProperty());
+        data_wyp.setCellValueFactory(cellData -> cellData.getValue().data_wypozyczeniaProperty());
+        ISBN.setCellValueFactory(cellData -> cellData.getValue().ISBNProperty());
 
         // Kolumna checkbox
         checkbox.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
@@ -66,17 +66,59 @@ public class LibrarianLoanController {
         DatabaseConnection connection = new DatabaseConnection();
         Connection conn = connection.getConnection();
 
-        wypButton.setOnAction(event -> wypozycz(event, conn));
-
-        // Załaduj dane
-        ObservableList<WypozyczNOW> dane = getKsiazkiZBazy(conn);
-        tableBooks.setItems(dane);
+        zwrotButton.setOnAction(event -> zwroc(event, conn));
 
         zaladujCzytelnikowDoComboBox();
+        czytelnikBox.setOnAction(event -> {
+            Czytelnik wybrany = (Czytelnik) czytelnikBox.getSelectionModel().getSelectedItem();
+            if (wybrany != null) {
+                // Odśwież listę książek dla wybranego czytelnika
+                ObservableList<Zwroty> dane = getKsiazkiZBazyDlaCzytelnika(wybrany.getId());
+                tableBooks.setItems(dane);
+            }
+        });
 
         tableBooks.setEditable(true);
         checkbox.setEditable(true);
     }
+
+    private ObservableList<Zwroty> getKsiazkiZBazyDlaCzytelnika(int idCzytelnika) {
+        ObservableList<Zwroty> lista = FXCollections.observableArrayList();
+
+        String sql = """
+        SELECT w.id_ksiazki, k.tytul, a.nazwa AS autor_nazwa,
+               w.data_wypozyczenia, k.ISBN
+        FROM wypozyczenia w
+        JOIN ksiazki k ON w.id_ksiazki = k.id_ksiazki
+        JOIN autorzy a ON k.id_autora = a.id_autora
+        WHERE w.data_oddania IS NULL AND w.id_czytelnika = ?
+    """;
+
+        try (Connection conn = new DatabaseConnection().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idCzytelnika);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String idKsiazki = rs.getString("id_ksiazki");
+                String tytul = rs.getString("tytul");
+                String autor = rs.getString("autor_nazwa");
+                String dataWyp = rs.getString("data_wypozyczenia");
+                String isbn = rs.getString("ISBN");
+
+                Zwroty z = new Zwroty(idKsiazki, autor, dataWyp, isbn, tytul, false);
+                lista.add(z);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+
 
     public void zaladujCzytelnikowDoComboBox() {
         DatabaseConnection connection = new DatabaseConnection();
@@ -107,147 +149,100 @@ public class LibrarianLoanController {
         }
     }
 
-    public ObservableList<WypozyczNOW> getKsiazkiZBazy(Connection conn) {
-        ObservableList<WypozyczNOW> lista = FXCollections.observableArrayList();
 
-        String sql = """
-    SELECT k.tytul, a.nazwa, g.nazwa_gatunku,
-           (k.ilosc - COALESCE(kw.ilosc_wypozyczonych, 0)) AS dostepne
-    FROM ksiazki k
-    JOIN autorzy a ON k.id_autora = a.id_autora
-    JOIN gatunek g ON k.id_gatunku = g.id_gatunku
-    LEFT JOIN ksiazki_wypozyczone kw ON k.id_ksiazki = kw.id_ksiazki
-    """;
 
-        try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
-                String tytul = rs.getString("tytul");
-                String autor = rs.getString("nazwa");
-                String gatunek = rs.getString("nazwa_gatunku");
-                String dostepne = rs.getString("dostepne");
-
-                lista.add(new WypozyczNOW(tytul, autor, gatunek, dostepne));
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Błąd SQL: " + e.getMessage());
-        }
-
-        return lista;
-    }
-
-    private void wypozycz(ActionEvent actionEvent, Connection conn) {
+    private void zwroc(ActionEvent actionEvent, Connection conn) {
         Czytelnik zaznaczonyCzytelnik = (Czytelnik) czytelnikBox.getSelectionModel().getSelectedItem();
         if (zaznaczonyCzytelnik == null) {
             System.out.println("Nie wybrano czytelnika!");
             return;
         }
 
-        StringBuilder selectedBooks = new StringBuilder("Wypozyczono: ");
+        StringBuilder zwroconeKsiazki = new StringBuilder("Zwrócono: ");
         boolean anySelected = false;
 
-        String getIdSql = "SELECT id_ksiazki FROM ksiazki WHERE tytul = ?";
-        String insertSql = """
-        INSERT INTO wypozyczenia (id_ksiazki, id_czytelnika, data_wypozyczenia, data_oddania)
-        VALUES (?, ?, CURRENT_DATE(), NULL)
-        """;
-
-        String getIloscSql = "SELECT ilosc FROM ksiazki WHERE tytul = ?";
-        String getWypozyczoneSql = "SELECT ilosc_wypozyczonych FROM ksiazki_wypozyczone WHERE id_ksiazki = ?";
-        String insertWypozyczoneSql = """
-        INSERT INTO ksiazki_wypozyczone (id_ksiazki, ilosc_wypozyczonych, ilosc_calkowita)
-        VALUES (?, ?, ?)
-        """;
-        String updateWypozyczoneSql = """
-        UPDATE ksiazki_wypozyczone
-        SET ilosc_wypozyczonych = ?
+        String znajdzIdKsiazkiSql = "SELECT id_ksiazki FROM ksiazki WHERE tytul = ?";
+        String znajdzWypozyczenieSql = """
+        SELECT id_wypozyczenia FROM wypozyczenia 
+        WHERE id_ksiazki = ? AND id_czytelnika = ? AND data_oddania IS NULL
+    """;
+        String aktualizujZwrotSql = """
+        UPDATE wypozyczenia 
+        SET data_oddania = CURRENT_DATE() 
+        WHERE id_wypozyczenia = ?
+    """;
+        String aktualizujWypozyczoneSql = """
+        UPDATE ksiazki_wypozyczone 
+        SET ilosc_wypozyczonych = ilosc_wypozyczonych - 1 
         WHERE id_ksiazki = ?
-        """;
-        try (
-                // Wykonanie zapytan
-                PreparedStatement getIdStmt = conn.prepareStatement(getIdSql);
-                PreparedStatement insertWypozyczenieStmt = conn.prepareStatement(insertSql,  Statement.RETURN_GENERATED_KEYS);
+    """;
 
-                PreparedStatement getIloscStmt = conn.prepareStatement(getIloscSql);
-                PreparedStatement getWypozyczoneKsiazkiStmt = conn.prepareStatement(getWypozyczoneSql);
-                PreparedStatement insertWypozyczoneKsiazkiStmt = conn.prepareStatement(insertWypozyczoneSql);
-                PreparedStatement updateWypozyczoneKsiazkiStmt = conn.prepareStatement(updateWypozyczoneSql)
+        try (
+                PreparedStatement getIdStmt = conn.prepareStatement(znajdzIdKsiazkiSql);
+                PreparedStatement findWypozyczenieStmt = conn.prepareStatement(znajdzWypozyczenieSql);
+                PreparedStatement updateZwrotStmt = conn.prepareStatement(aktualizujZwrotSql);
+                PreparedStatement updateWypozyczoneStmt = conn.prepareStatement(aktualizujWypozyczoneSql)
         ) {
-            for (WypozyczNOW ksiazka : tableBooks.getItems()) {
+            for (Zwroty ksiazka : tableBooks.getItems()) {
                 if (ksiazka.isSelected()) {
                     String tytul = ksiazka.getTytul();
 
+                    // 1. Pobierz ID książki
                     getIdStmt.setString(1, tytul);
-                    ResultSet rs = getIdStmt.executeQuery();
+                    ResultSet rsId = getIdStmt.executeQuery();
 
-                    if (rs.next()) {
-                        int idKsiazki = rs.getInt("id_ksiazki");
+                    if (rsId.next()) {
+                        int idKsiazki = rsId.getInt("id_ksiazki");
 
-                        // Pobierz ilość z tabeli ksiazki
-                        getIloscStmt.setString(1, tytul);
-                        ResultSet rsIlosc = getIloscStmt.executeQuery();
-                        int iloscCalkowita = rsIlosc.next() ? rsIlosc.getInt("ilosc") : 0;
+                        // 2. Znajdź aktywne wypożyczenie
+                        findWypozyczenieStmt.setInt(1, idKsiazki);
+                        findWypozyczenieStmt.setInt(2, zaznaczonyCzytelnik.getId());
+                        ResultSet rsWyp = findWypozyczenieStmt.executeQuery();
 
-                        // Sprawdź czy książka już wypożyczona
-                        getWypozyczoneKsiazkiStmt.setInt(1, idKsiazki);
-                        ResultSet rsWyp = getWypozyczoneKsiazkiStmt.executeQuery();
-
-                        int iloscWypozyczonych = 0;
-                        boolean istniejeRekordWKsiazkiWypozyczone = false;
                         if (rsWyp.next()) {
-                            iloscWypozyczonych = rsWyp.getInt("ilosc_wypozyczonych");
-                            istniejeRekordWKsiazkiWypozyczone = true;
-                        }
+                            int idWypozyczenia = rsWyp.getInt("id_wypozyczenia");
 
-                        // SPRAWDZENIE LIMITU
-                        if (iloscWypozyczonych >= iloscCalkowita) {
-                            System.out.printf("Brak dostępnych egzemplarzy: [id_ksiazki=%d, ilosc=%d, wypozyczonych=%d]%n",
-                                    idKsiazki, iloscCalkowita, iloscWypozyczonych);
-                            continue; // Pomija tę książkę
-                        }
+                            // 3. Zaktualizuj rekord (dodaj datę oddania)
+                            updateZwrotStmt.setInt(1, idWypozyczenia);
+                            updateZwrotStmt.executeUpdate();
 
-                        // Wstaw wypożyczenie
-                        insertWypozyczenieStmt.setInt(1, idKsiazki);
-                        insertWypozyczenieStmt.setInt(2, zaznaczonyCzytelnik.getId());
-                        insertWypozyczenieStmt.executeUpdate();
+                            // 4. Zmniejsz ilość wypożyczonych egzemplarzy
+                            updateWypozyczoneStmt.setInt(1, idKsiazki);
+                            updateWypozyczoneStmt.executeUpdate();
 
-                        if (istniejeRekordWKsiazkiWypozyczone) {
-                            // UPDATE
-                            iloscWypozyczonych += 1;
-                            updateWypozyczoneKsiazkiStmt.setInt(1, iloscWypozyczonych);
-                            updateWypozyczoneKsiazkiStmt.setInt(2, idKsiazki);
-                            updateWypozyczoneKsiazkiStmt.executeUpdate();
+                            zwroconeKsiazki.append(tytul).append(", ");
+                            anySelected = true;
                         } else {
-                            // INSERT
-                            insertWypozyczoneKsiazkiStmt.setInt(1, idKsiazki);
-                            insertWypozyczoneKsiazkiStmt.setInt(2, 1); // pierwsze wypożyczenie
-                            insertWypozyczoneKsiazkiStmt.setInt(3, iloscCalkowita);
-                            insertWypozyczoneKsiazkiStmt.executeUpdate();
+                            System.out.println("Nie znaleziono aktywnego wypożyczenia tej książki: " + tytul);
                         }
-
-                        selectedBooks.append(tytul).append(", ");
-                        anySelected = true;
                     } else {
-                        System.err.println("Nie znaleziono ID dla książki: " + tytul);
+                        System.out.println("Nie znaleziono książki: " + tytul);
                     }
                 }
             }
+
             if (anySelected) {
-                System.out.println(selectedBooks.substring(0, selectedBooks.length() - 2));
+                System.out.println(zwroconeKsiazki.substring(0, zwroconeKsiazki.length() - 2));
             } else {
-                System.out.println("Brak zaznaczonych książek do rezerwacji.");
-            }odswiezListeKsiazek(conn);
+                System.out.println("Nie zaznaczono żadnych książek do zwrotu.");
+            }
+
+            odswiezListeKsiazek();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void odswiezListeKsiazek(Connection conn) {
-        ObservableList<WypozyczNOW> noweDane = getKsiazkiZBazy(conn);
-        tableBooks.setItems(noweDane);
+    private void odswiezListeKsiazek() {
+        Czytelnik zaznaczonyCzytelnik = (Czytelnik) czytelnikBox.getSelectionModel().getSelectedItem();
+        if (zaznaczonyCzytelnik != null) {
+            ObservableList<Zwroty> noweDane = getKsiazkiZBazyDlaCzytelnika(zaznaczonyCzytelnik.getId());
+            tableBooks.setItems(noweDane);
+        }
     }
+
+
 
     private void otworzZwroty(javafx.scene.input.MouseEvent mouseEvent) {
         try {
