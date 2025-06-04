@@ -10,8 +10,8 @@ public class DatabaseConnection {
         String databaseName = "bibliotekaDB";
         String databaseUser = "root";
         String databasePassword = "";
-        String databaseUrl = "jdbc:mariadb://localhost:3307/" + databaseName;
-        //String databaseUrl = "jdbc:mariadb://localhost:3306/" + databaseName;
+        //String databaseUrl = "jdbc:mariadb://localhost:3307/" + databaseName;
+        String databaseUrl = "jdbc:mariadb://localhost:3306/" + databaseName;
 
         try{
             Class.forName("org.mariadb.jdbc.Driver");

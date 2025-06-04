@@ -6,9 +6,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -77,7 +74,7 @@
                         <TableColumn fx:id="rolaColumn" prefWidth="134.0" text="Rola" />
                      </columns>
                   </TableView>
-                  <Button onAction="#zmienRole" fx:id="zmienRoleButton" layoutX="85.0" layoutY="431.0" mnemonicParsing="false" text="Zmień rolę">
+                  <Button fx:id="zmienRoleButton" layoutX="85.0" layoutY="431.0" mnemonicParsing="false" onAction="#zmienRole" text="Zmień rolę">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -86,12 +83,6 @@
             </AnchorPane>
             <AnchorPane prefHeight="57.0" prefWidth="689.0" style="-fx-border-width: 0 0 2 0;">
                <children>
-                  <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="591.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@foto/lupa.png" />
-                     </image>
-                  </ImageView>
-                  <TextField layoutX="434.0" layoutY="16.0" promptText="Wyszukaj nazwiska" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="14.0" prefHeight="30.0" prefWidth="177.0" style="-fx-font-weight: BOLD;" text="UŻYTKOWNICY">
                      <font>
                         <Font size="18.0" />
