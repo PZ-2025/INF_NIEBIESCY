@@ -5,8 +5,8 @@ import java.io.FileReader;
 import java.sql.*;
 
 public class DatabaseMigration {
-    //private static final String URL = "jdbc:mariadb://localhost:3307/";
-    private static final String URL = "jdbc:mariadb://localhost:3306/";
+    private static final String URL = "jdbc:mariadb://localhost:3307/";
+    //private static final String URL = "jdbc:mariadb://localhost:3306/";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 

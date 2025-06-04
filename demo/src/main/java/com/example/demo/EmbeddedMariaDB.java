@@ -13,15 +13,15 @@ public class EmbeddedMariaDB {
         Class.forName("org.mariadb.jdbc.Driver");
 
         DBConfigurationBuilder config = DBConfigurationBuilder.newBuilder();
-        //config.setPort(3307);
-        config.setPort(3306);
+        config.setPort(3307);
+        //config.setPort(3306);
         db = DB.newEmbeddedDB(config.build());
         db.start();
         System.out.println("MariaDB started on port 3307");
 
         // Utwórz bazę, ale pomiń tworzenie użytkownika jeśli to nie jest konieczne
-        //String url = "jdbc:mariadb://localhost:3307";
-        String url = "jdbc:mariadb://localhost:3306";
+        String url = "jdbc:mariadb://localhost:3307";
+        //String url = "jdbc:mariadb://localhost:3306";
         try (Connection conn = DriverManager.getConnection(url, "root", "")) {
             conn.createStatement().execute("CREATE DATABASE IF NOT EXISTS bibliotekaDB");
         }
@@ -32,8 +32,8 @@ public class EmbeddedMariaDB {
     }
 
     public boolean waitForMariaDB(int maxRetries, int delayMs) throws InterruptedException {
-        //String url = "jdbc:mariadb://localhost:3307/information_schema";
-        String url = "jdbc:mariadb://localhost:3306/information_schema";
+        String url = "jdbc:mariadb://localhost:3307/information_schema";
+        //String url = "jdbc:mariadb://localhost:3306/information_schema";
         String user = "root";
         String password = "";
 
