@@ -238,7 +238,8 @@ public class LibrarianLoanController {
                 System.out.println(selectedBooks.substring(0, selectedBooks.length() - 2));
             } else {
                 System.out.println("Brak zaznaczonych książek do rezerwacji.");
-            }odswiezListeKsiazek(conn);
+            }
+            odswiezListeKsiazek(conn);
         } catch (SQLException e) {
             e.printStackTrace();
         }

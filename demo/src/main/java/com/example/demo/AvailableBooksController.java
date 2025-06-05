@@ -242,10 +242,11 @@ public class AvailableBooksController {
 
     private void loadBooks() {
         String query = "SELECT k.tytul, a.nazwa AS autor, g.nazwa_gatunku AS gatunek, " +
-                "k.wydawnictwo, k.ilosc " +
+                "k.wydawnictwo, (k.ilosc - COALESCE(kw.ilosc_wypozyczonych, 0)) AS dostepne " +
                 "FROM ksiazki k " +
                 "JOIN autorzy a ON k.id_autora = a.id_autora " +
-                "JOIN gatunek g ON k.id_gatunku = g.id_gatunku";
+                "JOIN gatunek g ON k.id_gatunku = g.id_gatunku " + // ✅ spacja na końcu!
+                "LEFT JOIN ksiazki_wypozyczone kw ON k.id_ksiazki = kw.id_ksiazki";
 
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
@@ -259,7 +260,7 @@ public class AvailableBooksController {
                         rs.getString("tytul"),
                         rs.getString("gatunek"),
                         rs.getString("wydawnictwo"),
-                        Integer.toString(rs.getInt("ilosc"))
+                        Integer.toString(rs.getInt("dostepne"))
                 );
                 bookList.add(book);
             }
