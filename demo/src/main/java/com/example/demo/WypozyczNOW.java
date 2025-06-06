@@ -28,4 +28,9 @@ public class WypozyczNOW {
 
     public String getTytul() { return tytul.get(); }
     public boolean isSelected() { return selected.get(); }
+
+    public String toString() {
+        return String.format("WypozyczNOW{tytul='%s', autor='%s', gatunek='%s', dostepne='%s', selected=%s}",
+                tytul.get(), autor.get(), gatunek.get(), dostepne.get(), selected.get());
+    }
 }

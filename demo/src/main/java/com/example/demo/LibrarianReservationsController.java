@@ -83,6 +83,7 @@ public class LibrarianReservationsController {
                     setText(null);
                 } else {
                     switch (status) {
+                        case 2 -> setText("Wykonane");
                         case 1 -> setText("Zaakceptowane");
                         case 0 -> setText("Oczekujące");
                         case -1 -> setText("Odrzucone");
@@ -154,7 +155,7 @@ public class LibrarianReservationsController {
 
             try (PreparedStatement ps = conn.prepareStatement(updateSql)) {
                 for (Rezerwacje r : tableView.getItems()) {
-                    if (r.isSelected() && r.getStatus() != 1) {
+                    if (r.isSelected() && r.getStatus() != 1 && r.getStatus() != 2) {
                         ps.setInt(1, r.getId());
                         ps.addBatch();
                         r.setStatus(1); // musisz mieć setter lub zaktualizować obiekt inaczej
@@ -183,7 +184,7 @@ public class LibrarianReservationsController {
 
             try (PreparedStatement ps = conn.prepareStatement(updateSql)) {
                 for (Rezerwacje r : tableView.getItems()) {
-                    if (r.isSelected() && r.getStatus() != 1) {
+                    if (r.isSelected() && r.getStatus() != -1 && r.getStatus() != 2) {
                         ps.setInt(1, r.getId());
                         ps.addBatch();
                         r.setStatus(-1);

@@ -59,7 +59,7 @@ public class Czytelnik {
 
     @Override
     public String toString() {
-        return imie + " " + nazwisko;
+        return  nazwisko+ " " + imie + " (" + login + ")";
     }
 
 }
